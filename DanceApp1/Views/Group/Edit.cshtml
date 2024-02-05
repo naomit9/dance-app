@@ -1,0 +1,28 @@
+﻿@model DanceApp1.Models.GroupDto
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Update Group Information</h2>
+
+<form action="/Group/Update/@Model.groupId" method="POST">
+    <div>
+        <label>Group Name:  </label> <input type="text" name="groupName" value="@Model.groupName" />
+    </div>
+    <div>
+        <label>Dance Style:  </label> <input type="text" name="groupStyle" value="@Model.groupStyle" />
+    </div>
+    <div>
+        <label>Group Bio: </label> <input type="text" name="groupBio" value="@Model.groupBio" />
+    </div>
+    <div>
+        <input type="submit" value="Update Group" />
+    </div>
+</form>
+
+<nav>
+    <form method="POST" action="/Group/Details/@Model.groupId">
+        <button>Cancel</button>
+    </form>
+</nav>

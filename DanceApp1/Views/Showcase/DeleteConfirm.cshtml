@@ -1,0 +1,26 @@
+﻿@model DanceApp1.Models.ShowcaseDto
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<div id="containershow">
+
+    <h2>
+        Are you sure you want to delete @Model.showcaseName?
+    </h2>
+    <p>
+        This action cannot be undone.
+    </p>
+    <nav>
+        <form method="POST" action="/Showcase/Delete/@Model.showcaseId">
+            <button class="delbtn">Confirm Delete</button>
+        </form>
+    </nav>
+    <nav>
+        <form method="POST" action="/Showcase/Details/@Model.showcaseId">
+            <button>Cancel</button>
+        </form>
+    </nav>
+</div>
+

@@ -1,0 +1,35 @@
+﻿@model DanceApp1.Models.DancerDto
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Update Dancer Information</h2>
+
+<form action="/Dancer/Update/@Model.dancerId" method="POST">
+    <input type="text" style="display:none;" name="dancerId"  />
+    <div>
+        <label>First Name:  </label> <input type="text" name="firstName" value="@Model.firstName" />
+    </div>
+    <div>
+        <label>Last Name:  </label> <input type="text" name="lastName" value="@Model.lastName" />
+    </div>
+    <div>
+        <label>Dance Style: </label> <input type="text" name="danceStyle" value="@Model.danceStyle" />
+    </div>
+    <div>
+        <label>Dancer Bio: </label> <input type="text" name="dancerBio" value="@Model.dancerBio" />
+    </div>
+    <div>
+        <label>Group ID: </label> <input type="number" name="groupId" />
+    </div>
+    <div>
+        <input type="submit" value="Update Dancer" />
+    </div>
+</form>
+
+<nav>
+    <form method="POST" action="/Dancer/Details/@Model.dancerId">
+        <button>Cancel</button>
+    </form>
+</nav>

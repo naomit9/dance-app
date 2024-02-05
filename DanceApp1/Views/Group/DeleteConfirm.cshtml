@@ -1,0 +1,26 @@
+﻿@model DanceApp1.Models.GroupDto
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<div id="containershow">
+
+    <h2>
+        Are you sure you want to delete @Model.groupName?
+    </h2>
+    <p>
+        This action cannot be undone.
+    </p>
+    <nav>
+        <form method="POST" action="/Group/Delete/@Model.groupId">
+            <button class="delbtn">Confirm Delete</button>
+        </form>
+    </nav>
+    <nav>
+        <form method="POST" action="/Group/Details/@Model.groupId">
+            <button>Cancel</button>
+        </form>
+    </nav>
+</div>
+

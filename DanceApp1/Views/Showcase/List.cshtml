@@ -1,0 +1,18 @@
+﻿@model IEnumerable<DanceApp1.Models.ShowcaseDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of Showcases</h2>
+
+<nav>
+    <form method="GET" action="/Showcase/New">
+        <button>Add New Showcase</button>
+    </form>
+</nav>
+
+@foreach (var showcase in Model)
+            {
+                <p><a href="/Showcase/Details/@showcase.showcaseId">@showcase.showcaseName</a></p>
+            } 
+

@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create Group</h2>
+
+<form action="/Group/Create" method="POST">
+    <div>
+        <label>Group Name:  </label> <input type="text" name="groupName" />
+    </div>
+    <div>
+        <label>Group Style:  </label> <input type="text" name="groupStyle" />
+    </div>
+    <div>
+        <label>Group Bio: </label> <input type="text" name="groupBio" />
+    </div>
+    <div>
+        <input type="submit" value="Add Group" />
+    </div>
+</form>
+
+<nav>
+    <form method="POST" action="/Group/List">
+        <button>Cancel</button>
+    </form>
+</nav>

@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create Dancer</h2>
+
+<form action="/Dancer/Create" method="POST">
+    <div>
+        <label>First Name:  </label> <input type="text" name="firstName" />
+    </div>
+    <div>
+        <label>Last Name:  </label> <input type="text" name="lastName" />
+    </div>
+    <div>
+        <label>Dance Style: </label> <input type="text" name="danceStyle" />
+    </div>
+    <div>
+        <label>Dancer Bio: </label> <input type="text" name="dancerBio" />
+    </div>
+    <div>
+        <label>Group ID: </label> <input type="number" name="groupId" />
+    </div>
+    <div>
+        <input type="submit" value="Add Dancer" />
+    </div>
+</form>
+
+<nav>
+    <form method="POST" action="/Dancer/List">
+        <button>Cancel</button>
+    </form>
+</nav>

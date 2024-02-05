@@ -1,0 +1,25 @@
+﻿@model DanceApp1.Models.GroupDto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<a href="/Group/List">Back To List</a>
+
+<h2>Group Details</h2>
+
+<h3>@Model.groupName</h3>
+<div><strong>Dance Style:</strong> @Model.groupStyle</div>
+<div><strong>Group Bio:</strong> @Model.groupBio</div>
+
+<nav>
+    <form method="POST" action="/Group/Edit/@Model.groupId">
+        <button>Edit</button>
+    </form>
+</nav>
+
+<nav>
+    <form method="POST" action="/Group/DeleteConfirm/@Model.groupId">
+        <button>Delete</button>
+    </form>
+</nav>

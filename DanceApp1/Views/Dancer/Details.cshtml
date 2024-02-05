@@ -1,0 +1,26 @@
+﻿@model DanceApp1.Models.DancerDto
+@{
+    ViewBag.Title = "Details";
+}
+
+<a href="/Dancer/List">Back To List</a>
+
+<h2>Dancer Details</h2>
+
+<h3>@Model.firstName @Model.lastName</h3>
+<div><strong>Dance Style:</strong> @Model.danceStyle</div>
+<div><strong>Dance Group:</strong> @Model.groupName</div>
+<div><strong>Dancer Bio:</strong> @Model.dancerBio</div>
+
+
+<nav>
+    <form method="POST" action="/Dancer/Edit/@Model.dancerId">
+        <button>Edit</button>
+    </form>
+</nav>
+
+<nav>
+    <form method="POST" action="/Dancer/DeleteConfirm/@Model.dancerId">
+        <button>Delete</button>
+    </form>
+</nav>

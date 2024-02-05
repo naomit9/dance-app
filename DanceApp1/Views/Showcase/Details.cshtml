@@ -1,0 +1,26 @@
+﻿@model DanceApp1.Models.ShowcaseDto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<a href="/Showcase/List">Back To List</a>
+
+<h2>Showcase Details</h2>
+
+<h3>@Model.showcaseName</h3>
+<div><strong>Date:</strong> @Model.Date</div>
+<div><strong>Location:</strong> @Model.showcaseLocation</div>
+
+
+<nav>
+    <form method="POST" action="/Showcase/Edit/@Model.showcaseId">
+        <button>Edit</button>
+    </form>
+</nav>
+
+<nav>
+    <form method="POST" action="/Showcase/DeleteConfirm/@Model.showcaseId">
+        <button>Delete</button>
+    </form>
+</nav>

@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create Showcase</h2>
+
+<form action="/Showcase/Create" method="POST">
+    <div>
+        <label>Showcase Name:  </label> <input type="text" name="showcaseName" />
+    </div>
+    <div>
+        <label>Date:  </label> <input type="datetime" name="Date" />
+    </div>
+    <div>
+        <label>Location: </label> <input type="text" name="showcaseLocation" />
+    </div>
+    <div>
+        <input type="submit" value="Add Showcase" />
+    </div>
+</form>
+
+<nav>
+    <form method="POST" action="/Showcase/List">
+        <button>Cancel</button>
+    </form>
+</nav>

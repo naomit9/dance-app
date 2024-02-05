@@ -54,6 +54,7 @@ namespace DanceApp1.Controllers
         public IHttpActionResult FindDancer(int id)
         {
             Dancer Dancer = db.Dancers.Find(id);
+            
             DancerDto DancerDto = new DancerDto()
             {
                 dancerId = Dancer.dancerId,
@@ -61,7 +62,7 @@ namespace DanceApp1.Controllers
                 lastName = Dancer.lastName,
                 danceStyle = Dancer.danceStyle,
                 dancerBio = Dancer.dancerBio,
-                groupName = Dancer.Group.groupName
+                groupName = Dancer.Group?.groupName
             };
 
             if (Dancer == null)
@@ -78,7 +79,7 @@ namespace DanceApp1.Controllers
         /// <param name="id"></param>
         /// <param name="dancer"></param>
         /// <returns></returns>
-        // POST: api/DancerData/UpdateDancer/5
+        /// POST: api/DancerData/UpdateDancer/5
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateDancer(int id, Dancer dancer)

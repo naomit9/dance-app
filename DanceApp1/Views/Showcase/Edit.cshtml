@@ -1,0 +1,28 @@
+﻿@model DanceApp1.Models.ShowcaseDto
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Update Showcase Information</h2>
+
+<form action="/Showcase/Update/@Model.showcaseId" method="POST">
+    <div>
+        <label>Showcase Name:  </label> <input type="text" name="showcaseName" value="@Model.showcaseName" />
+    </div>
+    <div>
+        <label>Date: </label> <input type="datetime" name="Date" value="@Model.Date" />
+    </div>
+    <div>
+        <label>Location: </label> <input type="text" name="showcaseLocation" value="@Model.showcaseLocation" />
+    </div>
+    <div>
+        <input type="submit" value="Update Showcase" />
+    </div>
+</form>
+
+<nav>
+    <form method="POST" action="/Showcase/Details/@Model.showcaseId">
+        <button>Cancel</button>
+    </form>
+</nav>

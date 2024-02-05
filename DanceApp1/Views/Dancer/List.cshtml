@@ -1,0 +1,18 @@
+﻿@model IEnumerable<DanceApp1.Models.DancerDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of Dancers</h2>
+
+
+<nav>
+    <form method="GET" action="/Dancer/New">
+        <button>Add New Dancer</button>
+    </form>
+</nav>
+
+@foreach (var dancer in Model)
+{
+    <p><a href="/Dancer/Details/@dancer.dancerId">@dancer.firstName @dancer.lastName </a></p>
+}

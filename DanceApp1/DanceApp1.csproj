@@ -184,11 +184,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DancerController.cs" />
     <Compile Include="Controllers\DancerDataController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\GroupDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ShowcaseController.cs" />
-    <Compile Include="Controllers\ShowcasesDataController.cs" />
+    <Compile Include="Controllers\ShowcaseDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -245,6 +246,7 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="jsondata\showcase.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -290,12 +292,27 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Dancer\List.cshtml" />
+    <Content Include="Views\Group\List.cshtml" />
+    <Content Include="Views\Showcase\List.cshtml" />
+    <Content Include="Views\Dancer\Details.cshtml" />
+    <Content Include="Views\Group\Details.cshtml" />
+    <Content Include="Views\Showcase\Details.cshtml" />
+    <Content Include="Views\Dancer\New.cshtml" />
+    <Content Include="Views\Group\New.cshtml" />
+    <Content Include="Views\Showcase\New.cshtml" />
+    <Content Include="Views\Dancer\Error.cshtml" />
+    <Content Include="Views\Group\Error.cshtml" />
+    <Content Include="Views\Showcase\Error.cshtml" />
+    <Content Include="Views\Dancer\DeleteConfirm.cshtml" />
+    <Content Include="Views\Dancer\Edit.cshtml" />
+    <Content Include="Views\Group\Edit.cshtml" />
+    <Content Include="Views\Group\DeleteConfirm.cshtml" />
+    <Content Include="Views\Showcase\Edit.cshtml" />
+    <Content Include="Views\Showcase\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Dancer\" />
-    <Folder Include="Views\Group\" />
-    <Folder Include="Views\Showcase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

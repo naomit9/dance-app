@@ -139,6 +139,11 @@ namespace DanceApp1.Controllers
             return CreatedAtRoute("DefaultApi", new { id = group.groupId }, group);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE: api/GroupData/DeleteGroup/5
         [ResponseType(typeof(Group))]
         [HttpPost]

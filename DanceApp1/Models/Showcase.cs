@@ -22,4 +22,13 @@ namespace DanceApp1.Models
         public ICollection<Group> Groups { get; set; }
 
     }
+
+
+    public class ShowcaseDto
+    {
+        public int showcaseId { get; set; }
+        public string showcaseName { get; set; }
+        public DateTime Date { get; set; }
+        public string showcaseLocation { get; set; }
+    }
 }

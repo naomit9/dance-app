@@ -1,0 +1,18 @@
+﻿@model IEnumerable<DanceApp1.Models.GroupDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of Dance Groups</h2>
+
+<nav>
+    <form method="GET" action="/Group/New">
+        <button>Add New Group</button>
+    </form>
+</nav>
+
+@foreach (var group in Model)
+            {
+                <p><a href="/Group/Details/@group.groupId">@group.groupName</a></p>
+            } 
+
