@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<DanceApp1.Models.GroupDto>
+
 @{
     ViewBag.Title = "Create";
 }
@@ -13,13 +14,19 @@
         <label>Last Name:  </label> <input type="text" name="lastName" />
     </div>
     <div>
-        <label>Dance Style: </label> <input type="text" name="danceStyle" />
+        <label>Dance Style: </label><input type="text" name="danceStyle" />
     </div>
     <div>
         <label>Dancer Bio: </label> <input type="text" name="dancerBio" />
     </div>
     <div>
-        <label>Group ID: </label> <input type="number" name="groupId" />
+        <label>Group: </label> 
+        <select name="groupId">
+            @foreach (var group in Model)
+            {
+                <option value="@group.groupId">@group.groupName</option>
+            }
+        </select>
     </div>
     <div>
         <input type="submit" value="Add Dancer" />

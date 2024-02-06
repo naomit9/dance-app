@@ -19,7 +19,7 @@ namespace DanceApp1.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         /// <summary>
-        /// 
+        /// Return all dancers in the system
         /// </summary>
         /// <returns></returns>
         // GET: api/DancerData/ListDancers
@@ -41,6 +41,35 @@ namespace DanceApp1.Controllers
 
             return DancerDtos;
         }
+
+        /// <summary>
+        /// Return infor about all dancers related to a particular group ID
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: All dancers in the database, including their associated group
+        /// </returns>
+        /// <param name="id">Group ID</param>
+        /// <example>GET: api/DancerData/ListDancersForGroup/5</example>
+        [HttpGet]
+        public IEnumerable<DancerDto> ListDancersForGroup(int id)
+        {
+            List<Dancer> Dancers = db.Dancers.Where(d => d.groupId == id).ToList();
+            List<DancerDto> DancerDtos = new List<DancerDto>();
+
+            Dancers.ForEach(d => DancerDtos.Add(new DancerDto()
+            {
+                dancerId = d.dancerId,
+                firstName = d.firstName,
+                lastName = d.lastName,
+                danceStyle = d.danceStyle,
+                dancerBio = d.dancerBio,
+                groupName = d.Group.groupName
+            }));
+
+            return DancerDtos;
+        }
+
 
 
         /// <summary>

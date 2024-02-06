@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using DanceApp1.Models;
+using DanceApp1.Models.ViewModels;
 using System.Web.Script.Serialization;
 using DanceApp1.Migrations;
 
@@ -18,7 +19,7 @@ namespace DanceApp1.Controllers
         static GroupController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44306/api/GroupData/");
+            client.BaseAddress = new Uri("https://localhost:44306/api/");
         }
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace DanceApp1.Controllers
         {
             // curl https://localhost:44306/api/GroupData/ListGroups
 
-            string url = "ListGroups";
+            string url = "GroupData/ListGroups";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             //Debug.WriteLine("The response code is ");
@@ -54,18 +55,32 @@ namespace DanceApp1.Controllers
         {
             // curl https://localhost:44306/api/GroupData/FindGroup/{id}
 
-            string url = "FindGroup/" + id;
+            DetailsGroup ViewModel = new DetailsGroup();
+
+            string url = "GroupData/FindGroup/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             //Debug.WriteLine("The response code is ");
             //Debug.WriteLine(response.StatusCode);
 
-            GroupDto selectedgroup = response.Content.ReadAsAsync<GroupDto>().Result;
-            
+            GroupDto SelectedGroup = response.Content.ReadAsAsync<GroupDto>().Result;
+
             //Debug.WriteLine("Group received: ");
             //Debug.WriteLine(selectedgroup.groupName);
 
-            return View(selectedgroup);
+            // Showcase info about dancers related to this group
+            ViewModel.SelectedGroup = SelectedGroup;
+
+
+            // Send a request to gather info about dancers related to a particular group ID
+            url = "DancerData/ListDancersForGroup/" + id; 
+            response = client. GetAsync(url).Result;
+            IEnumerable<DancerDto> RelatedDancers = response.Content.ReadAsAsync<IEnumerable<DancerDto>>().Result;
+
+            ViewModel.RelatedDancers = RelatedDancers;
+
+
+            return View(ViewModel);
         }
         public ActionResult Error()
         {
@@ -94,7 +109,7 @@ namespace DanceApp1.Controllers
             Debug.WriteLine("the jsonpayload is: ");
 
             // curl -d @group.json -H "Content-type:application/json"  "https://localhost:44306/api/GroupData/AddGroup"
-            string url = "AddGroup";
+            string url = "GroupData/AddGroup";
 
             string jsonpayload = jss.Serialize(group);
 
@@ -124,7 +139,7 @@ namespace DanceApp1.Controllers
         // GET: Group/Edit/5
         public ActionResult Edit(int id)
         {
-            string url = "FindGroup/" + id;
+            string url = "GroupData/FindGroup/" + id;
 
             HttpResponseMessage response = client.GetAsync(url).Result;
             GroupDto selectegroup = response.Content.ReadAsAsync<GroupDto>().Result;
@@ -144,7 +159,7 @@ namespace DanceApp1.Controllers
         [HttpPost]
         public ActionResult Update(int id, Group group)
         {
-            string url = "UpdateGroup/" + id;
+            string url = "GroupData/UpdateGroup/" + id;
             string jsonpayload = jss.Serialize(group);
 
             HttpContent content = new StringContent(jsonpayload);
@@ -172,7 +187,7 @@ namespace DanceApp1.Controllers
         // GET: Group/DeleteConfirm/5
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "FindGroup/" + id;
+            string url = "GroupData/FindGroup/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             GroupDto selectegroup = response.Content.ReadAsAsync<GroupDto>().Result;
 
@@ -189,7 +204,7 @@ namespace DanceApp1.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            string url = "DeleteGroup/" + id;
+            string url = "GroupData/DeleteGroup/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;

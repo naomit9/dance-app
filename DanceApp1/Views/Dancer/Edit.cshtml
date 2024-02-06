@@ -1,4 +1,4 @@
-﻿@model DanceApp1.Models.DancerDto
+﻿@model DanceApp1.Models.ViewModels.UpdateDancer
 
 @{
     ViewBag.Title = "Update";
@@ -6,22 +6,29 @@
 
 <h2>Update Dancer Information</h2>
 
-<form action="/Dancer/Update/@Model.dancerId" method="POST">
+<form  method="POST"  action="/Dancer/Update/@Model.selecteddancer.dancerId">
     <input type="text" style="display:none;" name="dancerId"  />
     <div>
-        <label>First Name:  </label> <input type="text" name="firstName" value="@Model.firstName" />
+        <label>First Name:  </label> <input type="text" name="firstName" value="@Model.selecteddancer.firstName" />
     </div>
     <div>
-        <label>Last Name:  </label> <input type="text" name="lastName" value="@Model.lastName" />
+        <label>Last Name:  </label> <input type="text" name="lastName" value="@Model.selecteddancer.lastName" />
     </div>
     <div>
-        <label>Dance Style: </label> <input type="text" name="danceStyle" value="@Model.danceStyle" />
+        <label>Dance Style: </label> <input type="text" name="danceStyle" value="@Model.selecteddancer.danceStyle" />
     </div>
     <div>
-        <label>Dancer Bio: </label> <input type="text" name="dancerBio" value="@Model.dancerBio" />
+        <label>Dancer Bio: </label> <input type="text" name="dancerBio" value="@Model.selecteddancer.dancerBio" />
     </div>
     <div>
-        <label>Group ID: </label> <input type="number" name="groupId" />
+        <label>Group ID: </label>
+        <select name="groupId">
+            @foreach (var group in Model.GroupOptions)
+            {
+                <option value="@group.groupId">@group.groupName</option>
+            }
+        </select>
+
     </div>
     <div>
         <input type="submit" value="Update Dancer" />
@@ -29,7 +36,7 @@
 </form>
 
 <nav>
-    <form method="POST" action="/Dancer/Details/@Model.dancerId">
+    <form method="POST" action="/Dancer/Details/@Model.selecteddancer.dancerId">
         <button>Cancel</button>
     </form>
 </nav>

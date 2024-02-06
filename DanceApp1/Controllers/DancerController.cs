@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Net.Http;
 using System.Diagnostics;
 using DanceApp1.Models;
+using DanceApp1.Models.ViewModels;
 using System.Web.Script.Serialization;
 using DanceApp1.Migrations;
 
@@ -18,7 +19,7 @@ namespace DanceApp1.Controllers
         static DancerController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44306/api/DancerData/");
+            client.BaseAddress = new Uri("https://localhost:44306/api/");
         }
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace DanceApp1.Controllers
             // curl https://localhost:44306/api/DancerData/ListDancers
            
             // Establish URL Endpoint
-            string url = "ListDancers";
+            string url = "DancerData/ListDancers";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             //Debug.WriteLine("The response code is ");
@@ -56,7 +57,7 @@ namespace DanceApp1.Controllers
             // curl https://localhost:44306/api/DancerData/FindDancer/{id}
 
             // Establish URL Endpoint
-            string url = "FindDancer/" + id;
+            string url = "DancerData/FindDancer/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             //Debug.WriteLine("The response code is ");
@@ -81,7 +82,15 @@ namespace DanceApp1.Controllers
         /// <example>GET: Dancer/New </example> 
         public ActionResult New()
         {
-            return View();
+            // Get informationa about all dancers in the system
+            // GET api/dancerdata/listdancers
+
+            string url = "GroupData/ListGroups";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            IEnumerable<GroupDto> GroupOptions = response.Content.ReadAsAsync<IEnumerable<GroupDto>>().Result;
+
+            return View(GroupOptions);
         }
 
         /// <summary>
@@ -97,7 +106,7 @@ namespace DanceApp1.Controllers
             //Debug.WriteLine(dancer.firstName);
 
             // curl -d @dancer.json -H "Content-type:application/json"  "https://localhost:44306/api/DancerData/AddDancer"
-            string url = "AddDancer";           
+            string url = "DancerData/AddDancer";           
             
             string jsonpayload = jss.Serialize(dancer);
 
@@ -127,12 +136,26 @@ namespace DanceApp1.Controllers
         // GET: Dancer/Edit/5
         public ActionResult Edit(int id)
         {
-            string url = "FindDancer/" + id;
+            UpdateDancer ViewModel = new UpdateDancer();
 
+            // The existing animal information
+            string url = "DancerData/FindDancer/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             DancerDto selecteddancer = response.Content.ReadAsAsync<DancerDto>().Result;
 
-            return View(selecteddancer);
+            ViewModel.selecteddancer = selecteddancer;
+
+            // To include all groups to choose from when updating this dancer profile
+
+            // The existing group information
+            url = "GroupData/ListGroups/";
+            response = client.GetAsync(url).Result;
+            IEnumerable<GroupDto> GroupOptions = response.Content.ReadAsAsync<IEnumerable<GroupDto>>
+                ().Result;
+
+            ViewModel.GroupOptions = GroupOptions;
+
+            return View(ViewModel);
         }
 
 
@@ -152,7 +175,7 @@ namespace DanceApp1.Controllers
                 Debug.WriteLine(dancer.firstName);
                 Debug.WriteLine(dancer.lastName);
 
-                string url = "UpdateDancer/" + id;
+                string url = "DancerData/UpdateDancer/" + id;
                 string jsonpayload = jss.Serialize(dancer);
 
                 Debug.WriteLine(jsonpayload);
@@ -189,7 +212,7 @@ namespace DanceApp1.Controllers
         // GET: Dancer/DeleteConfirm/5
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "FindDancer/" + id;
+            string url = "DancerData/FindDancer/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             DancerDto selecteddancer = response.Content.ReadAsAsync<DancerDto>().Result;
 
@@ -206,7 +229,7 @@ namespace DanceApp1.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            string url = "DeleteDancer/" + id;
+            string url = "DancerData/DeleteDancer/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;
