@@ -19,10 +19,10 @@ namespace DanceApp1.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         /// <summary>
-        /// 
+        /// Returns all the showcases in the system
         /// </summary>
-        /// <returns></returns>
-        // GET: api/ShowcaseData/ListShowcases
+        /// <returns>A list of showcase events</returns>
+        /// <example>GET: api/ShowcaseData/ListShowcases</example>
         [HttpGet]
         public IEnumerable<ShowcaseDto> ListShowcases()
         {
@@ -41,11 +41,11 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns one particular showcase
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: api/ShowcaseData/FindShowcase/5
+        /// <param name="id">ID of showcase</param>
+        /// <returns>Returns info of one particular showcase event</returns>
+        /// <example>GET: api/ShowcaseData/FindShowcase/5</example>
         [ResponseType(typeof(Showcase))]
         [HttpGet]
         public IHttpActionResult FindShowcase(int id)
@@ -68,12 +68,12 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// 
+        /// To send a POST request to the database to update the existing showcase through a json file
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="showcase"></param>
-        /// <returns></returns>
-        // POST: api/ShowcaseData/UpdateShowcase/5
+        /// <param name="id">ID of showcase</param>
+        /// <param name="showcase">Info about the showcase</param>
+        /// <returns>Returns new info about the showcase</returns>
+        /// <example>POST: api/ShowcaseData/UpdateShowcase/5</example>
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateShowcase(int id, Showcase showcase)
@@ -120,11 +120,11 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// 
+        /// To send a POST request to the database to create a new showcase to the system
         /// </summary>
-        /// <param name="showcase"></param>
-        /// <returns></returns>
-        // POST: api/ShowcaseData/AddShowcase/5
+        /// <param name="showcase">Info about the showcase</param>
+        /// <returns>Returns info about the new showcase</returns>
+        /// <example>POST: api/ShowcaseData/AddShowcase/5</example>
         [ResponseType(typeof(Showcase))]
         [HttpPost]
         public IHttpActionResult AddShowcase(Showcase showcase)
@@ -141,11 +141,11 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// 
+        /// To send a POST request to the database to delete a showcase by their ID
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // DELETE: api/ShowcaseData/DeleteShowcase/5
+        /// <param name="id">ID of showcase</param>
+        /// <returns>The deleted showcase</returns>
+        /// <example>DELETE: api/ShowcaseData/DeleteShowcase/5</example>
         [ResponseType(typeof(Showcase))]
         [HttpPost]
         public IHttpActionResult DeleteShowcase(int id)

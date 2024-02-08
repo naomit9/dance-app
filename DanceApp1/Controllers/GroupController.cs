@@ -136,7 +136,7 @@ namespace DanceApp1.Controllers
         /// </summary>
         /// <param name="id">ID of the group</param>
         /// <returns>A dynamic 'Edit Group' webpage which provides the current information of the group and asks the user for new info as a form</returns>
-        // GET: Group/Edit/5
+        /// <example>GET: Group/Edit/5</example>
         public ActionResult Edit(int id)
         {
             string url = "GroupData/FindGroup/" + id;
@@ -168,6 +168,8 @@ namespace DanceApp1.Controllers
 
             Debug.WriteLine(content);
 
+            Debug.WriteLine(response.IsSuccessStatusCode);
+
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("List");
@@ -180,11 +182,11 @@ namespace DanceApp1.Controllers
 
 
         /// <summary>
-        /// 
+        /// To confirm if the user wants to delete this dancer
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: Group/DeleteConfirm/5
+        /// <param name="id">ID of group</param>
+        /// <returns>The detail page of the selected dancer</returns>
+        /// <example>GET: Group/DeleteConfirm/5</example>
         public ActionResult DeleteConfirm(int id)
         {
             string url = "GroupData/FindGroup/" + id;
@@ -196,11 +198,11 @@ namespace DanceApp1.Controllers
 
 
         /// <summary>
-        /// 
+        /// To show a POST request to our database to remove a selected group
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // POST: Group/Delete/5
+        /// <param name="id">ID of group</param>
+        /// <returns>If the deletion is successful, you will be re-directed to List page, otherwise, Error page</returns>
+        /// <example>POST: Group/Delete/5</example>
         [HttpPost]
         public ActionResult Delete(int id)
         {

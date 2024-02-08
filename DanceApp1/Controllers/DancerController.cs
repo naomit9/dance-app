@@ -23,7 +23,7 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// To communicate with our group data api to retrieve a list of dancers
+        /// To communicate with our dancer data api to retrieve a list of dancers
         /// </summary>
         /// <returns>A list of dancers's names</returns>
         /// <example>GET: Dancer/List</example>
@@ -47,7 +47,7 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// To communicate with our group data api to retrieve details about one dancer
+        /// To communicate with our dancer data api to retrieve details about one dancer
         /// </summary>
         /// <param name="id">ID of the dancerId</param>
         /// <returns>Dancer's first name, last name, their dance style and a dancer bio</returns>
@@ -129,11 +129,11 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// 
+        /// To send a GET request to our dancer data api to show a view that allows you to edit a dancer
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: Dancer/Edit/5
+        /// <param name="id">ID of dancer</param>
+        /// <returns>Returns the updated info of the dancer</returns>
+        /// <example>GET: Dancer/Edit/5</example>
         public ActionResult Edit(int id)
         {
             UpdateDancer ViewModel = new UpdateDancer();
@@ -205,11 +205,11 @@ namespace DanceApp1.Controllers
 
 
         /// <summary>
-        /// 
+        /// To confirm if the use wants to delete this dancer
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: Dancer/DeleteConfirm/5
+        /// <param name="id">ID of dancer</param>
+        /// <returns>The detail page of the selected dancer</returns>
+        /// <example>GET: Dancer/DeleteConfirm/5</example>
         public ActionResult DeleteConfirm(int id)
         {
             string url = "DancerData/FindDancer/" + id;
@@ -221,11 +221,11 @@ namespace DanceApp1.Controllers
 
 
         /// <summary>
-        /// 
+        /// To show a POST request to our database to remove a selected dancer
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // POST: Dancer/Delete/5
+        /// <param name="id">ID of dancer</param>
+        /// <returns>If the deletion is successful, you will be re-directed to List page, otherwise, Error page</returns>
+        /// <example>POST: Dancer/Delete/5</example>
         [HttpPost]
         public ActionResult Delete(int id)
         {

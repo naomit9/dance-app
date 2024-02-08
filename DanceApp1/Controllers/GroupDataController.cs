@@ -19,10 +19,10 @@ namespace DanceApp1.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         /// <summary>
-        /// 
+        /// Returns all the groups in the system
         /// </summary>
-        /// <returns></returns>
-        // GET: api/GroupData/ListGroups
+        /// <returns>Returns a list of group's names linking to their bio</returns>
+        /// <example>GET: api/GroupData/ListGroups</example>
         [HttpGet]
         public IEnumerable<GroupDto> ListGroups()
         {
@@ -40,11 +40,11 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns info about a group
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: api/GroupData/FindGroup/5
+        /// <param name="id">ID of group</param>
+        /// <returns>Returns info about one particular group </returns>
+        /// <example>GET: api/GroupData/FindGroup/5</example>
         [ResponseType(typeof(Group))]
         [HttpGet]
         public IHttpActionResult FindGroup(int id)
@@ -67,12 +67,12 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// 
+        /// To send a POST request to the database to update the existing group through a json file
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="group"></param>
-        /// <returns></returns>
-        // POST: api/GroupData/UpdateGroup/5
+        /// <param name="id">ID of group</param>
+        /// <param name="group">Info about the group</param>
+        /// <returns>Returns new info about the group</returns>
+        /// POST: api/GroupData/UpdateGroup/5
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateGroup(int id, Group group)
@@ -119,11 +119,11 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// 
+        /// To send a POST request to the database to create a new group to the system
         /// </summary>
-        /// <param name="group"></param>
-        /// <returns></returns>
-        // POST: api/GroupData/AddGroup/5
+        /// <param name="group">Info about the group</param>
+        /// <returns>Returns info of the new group </returns>
+        /// <example>POST: api/GroupData/AddGroup/5</example>
         [ResponseType(typeof(Group))]
         [HttpPost]
         public IHttpActionResult AddGroup(Group group)
@@ -140,11 +140,11 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// 
+        /// To send a POST request to the database to delete a group by their ID
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // DELETE: api/GroupData/DeleteGroup/5
+        /// <param name="id">ID of group</param>
+        /// <returns>The deleted group</returns>
+        /// <example>DELETE: api/GroupData/DeleteGroup/5</example>
         [ResponseType(typeof(Group))]
         [HttpPost]
         public IHttpActionResult DeleteGroup(int id)

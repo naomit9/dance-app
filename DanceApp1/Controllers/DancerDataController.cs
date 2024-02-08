@@ -21,8 +21,8 @@ namespace DanceApp1.Controllers
         /// <summary>
         /// Return all dancers in the system
         /// </summary>
-        /// <returns></returns>
-        // GET: api/DancerData/ListDancers
+        /// <returns>A list of dancer's first name and last name that links to their bio page</returns>
+        /// <example>GET: api/DancerData/ListDancers</example>
         [HttpGet]
         public IEnumerable<DancerDto> ListDancers()
         {
@@ -43,7 +43,7 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// Return infor about all dancers related to a particular group ID
+        /// Return info about all dancers related to a particular group ID
         /// </summary>
         /// <returns>
         /// HEADER: 200 (OK)
@@ -73,11 +73,11 @@ namespace DanceApp1.Controllers
 
 
         /// <summary>
-        /// 
+        /// To retrieve info about one particular dancer by passing in their dancer ID
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: api/DancerData/FindDancer/5
+        /// <param name="id">ID of the dancer</param>
+        /// <returns>Info about one particular dancer</returns>
+        /// <example>GET: api/DancerData/FindDancer/5</example>
         [ResponseType(typeof(Dancer))]
         [HttpGet]
         public IHttpActionResult FindDancer(int id)
@@ -103,12 +103,12 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// 
+        /// To send a POST request to the database to update the existing dancer through a json file
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="dancer"></param>
-        /// <returns></returns>
-        /// POST: api/DancerData/UpdateDancer/5
+        /// <param name="id">ID of the dancer</param>
+        /// <param name="dancer">Info of dancer including first and last name, dance style and their grouop ID</param>
+        /// <returns>New info of the dancer</returns>
+        /// <example>POST: api/DancerData/UpdateDancer/5</example>
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateDancer(int id, Dancer dancer)
@@ -155,11 +155,11 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// 
+        /// To send a POST request to the database to create a new dancer to the system
         /// </summary>
-        /// <param name="dancer"></param>
-        /// <returns></returns>
-        // POST: api/DancerData/AddDancer
+        /// <param name="dancer">Info about the dancer</param>
+        /// <returns>Info of the new dancer being created</returns>
+        /// <example>POST: api/DancerData/AddDancer</example>
         [ResponseType(typeof(Dancer))]
         [HttpPost]
         public IHttpActionResult AddDancer(Dancer dancer)
@@ -176,11 +176,11 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
-        /// 
+        /// To send a POST request to the database to delete a dancer by their ID
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // POST: api/DancerData/DeleteDancer/5
+        /// <param name="id">ID of dancer</param>
+        /// <returns>Returns the dancer that has been deleted</returns>
+        /// <example>POST: api/DancerData/DeleteDancer/5</example>
         [ResponseType(typeof(Dancer))]
         [HttpPost]
         public IHttpActionResult DeleteDancer(int id)
