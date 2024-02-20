@@ -21,6 +21,9 @@ namespace DanceApp1.Models
         // A showcase has many dance groups
         public ICollection<Group> Groups { get; set; }
 
+        // A showcase has many dancers
+        public ICollection<Dancer> Dancers { get; set; }
+
     }
 
 

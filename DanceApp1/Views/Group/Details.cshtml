@@ -28,6 +28,11 @@
 
     @foreach (var dancer in Model.RelatedDancers)
             {
-                <a href="/Dancer/Details/@dancer.dancerId">@dancer.firstName @dancer.lastName</a>
+                <ul>
+                    <li>
+                        <a href="/Dancer/Details/@dancer.dancerId">@dancer.firstName @dancer.lastName</a>
+                    </li>
+                </ul>
+                
             }
 </div>

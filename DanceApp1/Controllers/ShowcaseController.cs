@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using DanceApp1.Models;
 using System.Web.Script.Serialization;
 using System.Runtime.CompilerServices;
+using DanceApp1.Models.ViewModels;
 
 namespace DanceApp1.Controllers
 {
@@ -18,7 +19,7 @@ namespace DanceApp1.Controllers
         static ShowcaseController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44306/api/ShowcaseData/");
+            client.BaseAddress = new Uri("https://localhost:44306/api/");
         }
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace DanceApp1.Controllers
         {
             // curl https://localhost:44306/api/ShowcaseData/ListShowcases
 
-            string url = "ListShowcases";
+            string url = "ShowcaseData/ListShowcases";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             //Debug.WriteLine("The response code is ");
@@ -52,26 +53,36 @@ namespace DanceApp1.Controllers
         /// <example>GET: Showcase/Details/5</example>
         public ActionResult Details(int id)
         {
+            DetailsShowcase ViewModel = new DetailsShowcase();
+
             // curl https://localhost:44306/api/ShowcaseData/FindShowcase/{id}
 
-            string url = "FindShowcase/" + id;
+            string url = "ShowcaseData/FindShowcase/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             //Debug.WriteLine("The response code is ");
             //Debug.WriteLine(response.StatusCode);
 
-            ShowcaseDto selectedshowcase = response.Content.ReadAsAsync<ShowcaseDto>().Result;
+            ShowcaseDto SelectedShowcase = response.Content.ReadAsAsync<ShowcaseDto>().Result;
 
-            //Debug.WriteLine("Showcase received:");
-            //Debug.WriteLine(selectedshowcase.showcaseName);
+            Debug.WriteLine("Showcase received:");
+            Debug.WriteLine(SelectedShowcase.showcaseName);
 
-            return View(selectedshowcase);
+            ViewModel.SelectedShowcase = SelectedShowcase;
+
+            // Show all dance groups that participated in a showcase
+            url = "GroupData/ListGroupsForShowcase/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<GroupDto> ShowcaseGroups = response.Content.ReadAsAsync<IEnumerable<GroupDto>>().Result;
+
+            ViewModel.ShowcaseGroups = ShowcaseGroups;
+
+            return View(ViewModel);
         }
         public ActionResult Error()
         {
             return View();
         }
-
 
         /// <summary>
         /// To show a view that has the required information to create a new showcase
@@ -93,7 +104,7 @@ namespace DanceApp1.Controllers
         [HttpPost]
         public ActionResult Create(Showcase showcase)
         {
-            string url = "AddShowcase";
+            string url = "ShowcaseData/AddShowcase";
 
             string jsonpayload = jss.Serialize(showcase);
             
@@ -123,7 +134,7 @@ namespace DanceApp1.Controllers
         /// <example>GET: Showcase/Edit/5</example>
         public ActionResult Edit(int id)
         {
-            string url = "FindShowcase/" + id;
+            string url = "ShowcaseData/FindShowcase/" + id;
 
             HttpResponseMessage response = client.GetAsync(url).Result;
             ShowcaseDto selectedshowcase = response.Content.ReadAsAsync<ShowcaseDto>().Result;
@@ -143,7 +154,7 @@ namespace DanceApp1.Controllers
         [HttpPost]
         public ActionResult Update(int id, Showcase showcase)
         {
-            string url = "UpdateShowcase/" + id;
+            string url = "ShowcaseData/UpdateShowcase/" + id;
             string jsonpayload = jss.Serialize(showcase);
 
             HttpContent content = new StringContent(jsonpayload);
@@ -171,7 +182,7 @@ namespace DanceApp1.Controllers
         /// <example>GET: Showcase/DeleteConfirm/5</example>
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "FindShowcase/" + id;
+            string url = "ShowcaseData/FindShowcase/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             ShowcaseDto selectedshowcase = response.Content.ReadAsAsync<ShowcaseDto>().Result;
 
@@ -188,7 +199,7 @@ namespace DanceApp1.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            string url = "DeleteShowcase/" + id;
+            string url = "ShowcaseData/DeleteShowcase/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;

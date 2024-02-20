@@ -1,4 +1,4 @@
-﻿@model DanceApp1.Models.ShowcaseDto
+﻿@model DanceApp1.Models.ViewModels.DetailsShowcase
 
 @{
     ViewBag.Title = "Details";
@@ -7,19 +7,29 @@
 <a href="/Showcase/List">Back To List</a>
 
 
-<h3>@Model.showcaseName</h3>
-<div><strong>Date:</strong> @Model.Date</div>
-<div><strong>Location:</strong> @Model.showcaseLocation</div>
+<h3>@Model.SelectedShowcase.showcaseName</h3>
+<div><strong>Date:</strong> @Model.SelectedShowcase.Date</div>
+<div><strong>Location:</strong> @Model.SelectedShowcase.showcaseLocation</div>
 
 
 <nav>
-    <form method="POST" action="/Showcase/Edit/@Model.showcaseId">
+    <form method="POST" action="/Showcase/Edit/@Model.SelectedShowcase.showcaseId">
         <button>Edit</button>
     </form>
 </nav>
 
 <nav>
-    <form method="POST" action="/Showcase/DeleteConfirm/@Model.showcaseId">
+    <form method="POST" action="/Showcase/DeleteConfirm/@Model.SelectedShowcase.showcaseId">
         <button style="color:#ab2020;">Delete</button>
     </form>
 </nav>
+
+<div>
+    <h4>
+        Groups participated:
+    </h4>
+    @foreach(var group in Model.ShowcaseGroups)
+            {
+                <a href="/Group/Details/@group.groupId">@group.groupName</a> <br/>
+            }
+</div>

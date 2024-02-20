@@ -24,7 +24,8 @@ namespace DanceApp1.Controllers
         /// <returns>A list of showcase events</returns>
         /// <example>GET: api/ShowcaseData/ListShowcases</example>
         [HttpGet]
-        public IEnumerable<ShowcaseDto> ListShowcases()
+        [ResponseType(typeof(ShowcaseDto))]
+        public IHttpActionResult ListShowcases()
         {
             List<Showcase> Showcases = db.Showcases.ToList();
             List<ShowcaseDto> ShowcaseDtos = new List<ShowcaseDto>();
@@ -37,7 +38,36 @@ namespace DanceApp1.Controllers
                 showcaseLocation = s.showcaseLocation
             }));
 
-            return ShowcaseDtos;
+            return Ok(ShowcaseDtos);
+        }
+
+
+        /// <summary>
+        /// Returns all the showcases in the system associated with a particular dancer
+        /// </summary>
+        /// <returns>A list of showcase events for a dancer</returns>
+        /// <param name="id">Dancer ID</param>
+        /// <example>GET: api/ShowcaseData/ListShowcasesForDancer/5</example>
+        [HttpGet]
+        [ResponseType(typeof(ShowcaseDto))]
+        public IHttpActionResult ListShowcasesForDancer(int id)
+        {
+            List<Showcase> Showcases = db.Showcases.Where(
+                s => s.Dancers.Any(
+                    d => d.dancerId == id
+                )).ToList();
+
+            List<ShowcaseDto> ShowcaseDtos = new List<ShowcaseDto>();
+
+            Showcases.ForEach(s => ShowcaseDtos.Add(new ShowcaseDto()
+            {
+                showcaseId = s.showcaseId,
+                showcaseName = s.showcaseName,
+                Date = s.Date,
+                showcaseLocation = s.showcaseLocation
+            }));
+
+            return Ok(ShowcaseDtos);
         }
 
         /// <summary>

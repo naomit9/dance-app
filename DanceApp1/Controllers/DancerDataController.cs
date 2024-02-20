@@ -71,7 +71,6 @@ namespace DanceApp1.Controllers
         }
 
 
-
         /// <summary>
         /// To retrieve info about one particular dancer by passing in their dancer ID
         /// </summary>

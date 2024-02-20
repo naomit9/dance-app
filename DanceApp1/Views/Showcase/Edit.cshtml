@@ -7,6 +7,7 @@
 <h2>Update Showcase Information</h2>
 
 <form action="/Showcase/Update/@Model.showcaseId" method="POST">
+    <input type="text" name="showcaseId" value="@Model.showcaseId"/>
     <div>
         <label>Showcase Name:  </label> <input type="text" name="showcaseName" value="@Model.showcaseName" />
     </div>

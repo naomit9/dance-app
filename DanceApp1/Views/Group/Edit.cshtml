@@ -7,6 +7,7 @@
 <h2>Update Group Information</h2>
 
 <form action="/Group/Update/@Model.groupId" method="POST">
+    <input type="text" style="display:none;" name="groupId" value="@Model.groupId"/>
     <div>
         <label>Group Name:  </label> <input type="text" name="groupName" value="@Model.groupName" />
     </div>

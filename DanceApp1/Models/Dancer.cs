@@ -23,6 +23,7 @@ namespace DanceApp1.Models
         [ForeignKey("Group")]
         public int groupId { get; set; }
         public virtual Group Group { get; set; }
+
     }
 
     public class DancerDto

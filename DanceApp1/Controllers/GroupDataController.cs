@@ -40,6 +40,34 @@ namespace DanceApp1.Controllers
         }
 
         /// <summary>
+        /// Returns all the groups in the system that participated in a particular showcase
+        /// </summary>
+        /// <returns>Returns a list of group's names, including their associated dancers, that matches with a particular showcase ID</returns>
+        /// <param name="id">Showcase ID</param>
+        /// <example>GET: api/GroupData/ListGroupsForShowcase/5/example>
+        [HttpGet]
+        [ResponseType(typeof(GroupDto))]
+        public IHttpActionResult ListGroupsForShowcase(int id)
+        {
+            List<Group> Groups = db.Groups.Where(
+                g => g.Showcases.Any(
+                    s => s.showcaseId == id
+                )).ToList();
+            List<GroupDto> GroupDtos = new List<GroupDto>();
+
+            Groups.ForEach(g => GroupDtos.Add(new GroupDto()
+            {
+                groupId = g.groupId,
+                groupName = g.groupName,
+                groupStyle = g.groupStyle,
+                groupBio = g.groupBio
+            }));
+            return Ok(GroupDtos);
+        }
+
+
+
+        /// <summary>
         /// Returns info about a group
         /// </summary>
         /// <param name="id">ID of group</param>
