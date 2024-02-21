@@ -209,6 +209,14 @@
     <Compile Include="Migrations\202401241849081_group-showcase.designer.cs">
       <DependentUpon>202401241849081_group-showcase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402211906112_dancer1.cs" />
+    <Compile Include="Migrations\202402211906112_dancer1.designer.cs">
+      <DependentUpon>202402211906112_dancer1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402211906483_showcase1.cs" />
+    <Compile Include="Migrations\202402211906483_showcase1.designer.cs">
+      <DependentUpon>202402211906483_showcase1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Dancer.cs" />
@@ -356,6 +364,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202401241849081_group-showcase.resx">
       <DependentUpon>202401241849081_group-showcase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402211906112_dancer1.resx">
+      <DependentUpon>202402211906112_dancer1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402211906483_showcase1.resx">
+      <DependentUpon>202402211906483_showcase1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

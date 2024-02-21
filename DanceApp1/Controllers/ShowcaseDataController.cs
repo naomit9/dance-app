@@ -43,20 +43,19 @@ namespace DanceApp1.Controllers
 
 
         /// <summary>
-        /// Returns all the showcases in the system associated with a particular dancer
+        /// Returns a list of showcases that a particular group performed in
         /// </summary>
-        /// <returns>A list of showcase events for a dancer</returns>
-        /// <param name="id">Dancer ID</param>
-        /// <example>GET: api/ShowcaseData/ListShowcasesForDancer/5</example>
+        /// <param name="id">Group ID</param>
+        /// <returns>List of Showcases</returns>
+        /// <example>api/ShowcaseData/ListShowcasesForGroup/10</example>
         [HttpGet]
         [ResponseType(typeof(ShowcaseDto))]
-        public IHttpActionResult ListShowcasesForDancer(int id)
+        public IHttpActionResult ListShowcasesForGroup(int id)
         {
             List<Showcase> Showcases = db.Showcases.Where(
-                s => s.Dancers.Any(
-                    d => d.dancerId == id
+                s => s.Groups.Any(
+                    g => g.groupId == id
                 )).ToList();
-
             List<ShowcaseDto> ShowcaseDtos = new List<ShowcaseDto>();
 
             Showcases.ForEach(s => ShowcaseDtos.Add(new ShowcaseDto()
@@ -66,7 +65,6 @@ namespace DanceApp1.Controllers
                 Date = s.Date,
                 showcaseLocation = s.showcaseLocation
             }));
-
             return Ok(ShowcaseDtos);
         }
 

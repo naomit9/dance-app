@@ -36,3 +36,17 @@
                 
             }
 </div>
+
+<div style="margin-top:2rem;">
+    <h4>Showcases performed: </h4>
+
+    @foreach (var showcase in Model.ShowcaseAttended)
+    {
+        <ul>
+            <li>
+                <a href="/Showcase/Details/@showcase.showcaseId">@showcase.showcaseName</a>
+            </li>
+        </ul>
+
+    }
+</div>

@@ -9,5 +9,7 @@ namespace DanceApp1.Models.ViewModels
     {
         public GroupDto SelectedGroup { get; set; }
         public IEnumerable<DancerDto> RelatedDancers { get; set;}
+        public IEnumerable<ShowcaseDto> ShowcaseAttended { get; set; }
+
     }
 }

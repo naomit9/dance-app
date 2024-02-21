@@ -77,6 +77,11 @@ namespace DanceApp1.Controllers
             response = client. GetAsync(url).Result;
             IEnumerable<DancerDto> RelatedDancers = response.Content.ReadAsAsync<IEnumerable<DancerDto>>().Result;
 
+            url = "ShowcaseData/ListShowcasesForGroup/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<ShowcaseDto> ShowcaseAttended = response.Content.ReadAsAsync<IEnumerable<ShowcaseDto>>().Result;
+            ViewModel.ShowcaseAttended = ShowcaseAttended;
+
             ViewModel.RelatedDancers = RelatedDancers;
 
 
