@@ -11,6 +11,9 @@ using System.Web.Http.Description;
 using DanceApp1.Migrations;
 using DanceApp1.Models;
 using System.Diagnostics;
+using static System.Data.Entity.Infrastructure.Design.Executor;
+using System.IO;
+using System.Web;
 
 namespace DanceApp1.Controllers
 {
@@ -132,6 +135,9 @@ namespace DanceApp1.Controllers
 
             db.Entry(dancer).State = EntityState.Modified;
 
+            // Picture update is handled by another method
+            db.Entry(dancer).Property(d => d.DancerHasPic).IsModified = false;
+            db.Entry(dancer).Property(d => d.PicExtension).IsModified = false;
             try
             {
                 db.SaveChanges();
@@ -152,6 +158,89 @@ namespace DanceApp1.Controllers
             Debug.WriteLine("None of the conditions triggered");
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+
+
+        /// <summary>
+        /// Receives dancer picture data uploads it to the webserver and updates the dancer's HasPic option
+        /// </summary>
+        /// <param name="id">Dancer ID</param>
+        /// <returns>status code 200 if successful</returns>
+        /// <example>
+        /// HEADER: enctype=multipart/form-data
+        ///POST: api/dancerdata/UploadDancerPic/3
+        ///curl -F dancerpic=@file.jpg "api/dancerdata/uploaddancerpic/3"
+        ///FORM-DATA: image
+        /// </example>
+
+        [HttpPost]
+        public IHttpActionResult UploadDancerPic(int id)
+        {
+
+
+            bool haspic = false;
+            string picextension;
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                Debug.WriteLine("Received multipart form data");
+
+                int numfiles = HttpContext.Current.Request.Files.Count;
+                Debug.WriteLine("Files received: " + numfiles);
+
+                // Check if a file is posted
+                if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                {
+                    var dancerPic = HttpContext.Current.Request.Files[0];
+                    // Check if a file is empty
+                    if (dancerPic.ContentLength > 0)
+                    {
+                        // Establish valid file types
+                        var valtypes = new[] { "jpeg", "jpg", "png", "gif", "avif" };
+                        var extension = Path.GetExtension(dancerPic.FileName).Substring(1);
+                        // Check the extension of the file
+                        if (valtypes.Contains(extension))
+                        {
+                            try
+                            {
+                                string fn = id + "." + extension;
+                                // Direct file path to /Content/images/dancers/{id}.{extension}
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Images/Dancers/"), fn);
+                                // Save the file
+                                dancerPic.SaveAs(path);
+
+                                // If these are good then set these fields
+                                haspic = true;
+                                picextension = extension;
+
+                                // Update the dancer haspic and picextension fields in the database
+                                Dancer SelectedDancer = db.Dancers.Find(id);
+                                SelectedDancer.DancerHasPic = haspic;
+                                SelectedDancer.PicExtension = extension;
+                                db.Entry(SelectedDancer).State = EntityState.Modified;
+
+                                db.SaveChanges();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine(" Dancer image was not saved successfully");
+                                Debug.WriteLine("Exception: " + ex);
+                                return BadRequest();
+                            }
+                        }
+                    }
+                }
+
+                return Ok();
+
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+        }
+
 
         /// <summary>
         /// To send a POST request to the database to create a new dancer to the system

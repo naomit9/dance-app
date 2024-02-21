@@ -217,6 +217,10 @@
     <Compile Include="Migrations\202402211906483_showcase1.designer.cs">
       <DependentUpon>202402211906483_showcase1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402211915586_dancer2.cs" />
+    <Compile Include="Migrations\202402211915586_dancer2.designer.cs">
+      <DependentUpon>202402211915586_dancer2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Dancer.cs" />
@@ -370,6 +374,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202402211906483_showcase1.resx">
       <DependentUpon>202402211906483_showcase1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402211915586_dancer2.resx">
+      <DependentUpon>202402211915586_dancer2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -15,7 +15,8 @@ namespace DanceApp1.Models
         public string lastName { get; set; }
         public string danceStyle { get; set; }
         public string dancerBio { get; set; }
-
+        public bool DancerHasPic { get; set; }
+        public string PicExtension { get; set; }
 
         // This is a foreign key to the group entity
         // A dancer belongs to a group
