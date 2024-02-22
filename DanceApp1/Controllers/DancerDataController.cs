@@ -177,7 +177,6 @@ namespace DanceApp1.Controllers
         public IHttpActionResult UploadDancerPic(int id)
         {
 
-
             bool haspic = false;
             string picextension;
             if (Request.Content.IsMimeMultipartContent())

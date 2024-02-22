@@ -68,6 +68,78 @@ namespace DanceApp1.Controllers
             return Ok(ShowcaseDtos);
         }
 
+
+
+        /// <summary>
+        /// Associates a particular group with a particular showcase
+        /// </summary>
+        /// <param name="showcaseid">Showcase Id</param>
+        /// /// <param name="groupId">Group Id</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// OR HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST curl -d "" -v "https://localhost:44306/api/showcasedata/AssociateShowcaseWithGroup/4/6"
+        /// </example>
+
+        [HttpPost]
+        [Route("api/showcasedata/AssociateShowcaseWithGroup/{showcaseId}/{groupId}")]
+        public IHttpActionResult AssociateShowcaseWithGroup(int showcaseId, int groupId)
+        {
+            Showcase SelectedShowcase = db.Showcases.Include(s => s.Groups).Where(s => s.showcaseId == showcaseId).FirstOrDefault();
+            Group SelectedGroup = db.Groups.Find(groupId);
+
+            if (SelectedShowcase == null || SelectedGroup == null)
+            {
+                return NotFound();
+            }
+
+            SelectedShowcase.Groups.Add(SelectedGroup);
+            db.SaveChanges();
+
+
+            return Ok();
+        }
+
+
+
+        /// <summary>
+        /// Removes an association between a particular group with a particular showcase
+        /// </summary>
+        /// <param name="showcaseid">Showcase Id</param>
+        /// /// <param name="groupId">Group Id</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// OR HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST curl -d "" -v https://localhost:44306/api/showcasedata/UnAssociateShowcaseWithGroup/4/6
+        /// </example>
+
+        [HttpPost]
+        [Route("api/showcasedata/UnAssociateShowcaseWithGroup/{showcaseId}/{groupId}")]
+        public IHttpActionResult UnAssociateShowcaseWithGroup(int showcaseId, int groupId)
+        {
+            Showcase SelectedShowcase = db.Showcases.Include(s => s.Groups).Where(s => s.showcaseId == showcaseId).FirstOrDefault();
+            Group SelectedGroup = db.Groups.Find(groupId);
+
+            if (SelectedShowcase == null || SelectedGroup == null)
+            {
+                return NotFound();
+            }
+
+            SelectedShowcase.Groups.Remove(SelectedGroup);
+            db.SaveChanges();
+
+
+            return Ok();
+        }
+
+
+
+
+
         /// <summary>
         /// Returns one particular showcase
         /// </summary>

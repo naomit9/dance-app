@@ -75,10 +75,52 @@ namespace DanceApp1.Controllers
             response = client.GetAsync(url).Result;
             IEnumerable<GroupDto> ShowcaseGroups = response.Content.ReadAsAsync<IEnumerable<GroupDto>>().Result;
 
+            url = "GroupData/ListGroupsNotInShowcase/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<GroupDto> AvailableGroups = response.Content.ReadAsAsync<IEnumerable<GroupDto>>().Result;
+
+            ViewModel.AvailableGroups = AvailableGroups;
+
             ViewModel.ShowcaseGroups = ShowcaseGroups;
 
             return View(ViewModel);
         }
+
+
+        //POST Showcase/Associate/{showcaseId}
+        [HttpPost]
+        public ActionResult Associate(int id, int groupId)
+        {
+            Debug.WriteLine("Attempting to associate showcase:" + id + " with group " + groupId);
+
+            // Call our API to associate showcase with group
+            string url = "ShowcaseData/AssociateShowcaseWithGroup/" + id + "/" + groupId;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            return RedirectToAction("Details/" + id);
+        }
+
+
+        //GET Showcase/Unassociate/{id}?groupId={groupId}
+        [HttpGet]
+        public ActionResult Unassociate(int id, int groupId)
+        {
+            Debug.WriteLine("Attempting to associate showcase:" + id + " with group " + groupId);
+
+            // Call our API to associate showcase with group
+            string url = "ShowcaseData/UnassociateShowcaseWithGroup/" + id + "/" + groupId;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            return RedirectToAction("Details/" + id);
+        }
+
+
+
+
         public ActionResult Error()
         {
             return View();

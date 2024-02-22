@@ -28,8 +28,21 @@
     <h4>
         Groups participated:
     </h4>
-    @foreach(var group in Model.ShowcaseGroups)
-            {
-                <a href="/Group/Details/@group.groupId">@group.groupName</a> <br/>
-            }
+    @foreach (var group in Model.ShowcaseGroups)
+    {
+        <a href="/Group/Details/@group.groupId">@group.groupName</a>
+        <a style="color:#ff0000" href="/Showcase/Unassociate/@Model.SelectedShowcase.showcaseId?groupId=@group.groupId">[X]</a> <br />
+    }
+    <div>
+        <h5>Add new Group for @Model.SelectedShowcase.showcaseName event:</h5>
+        <form method="POST" action="/Showcase/Associate/@Model.SelectedShowcase.showcaseId">
+            <select name="groupId">
+                @foreach (var group in Model.AvailableGroups)
+                {
+                    <option value="@group.groupId">@group.groupName</option>
+                }
+            </select>
+            <input type="submit" value="Associate Group" />
+        </form>
+    </div>
 </div>

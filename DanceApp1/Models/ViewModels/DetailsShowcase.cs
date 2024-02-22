@@ -10,5 +10,6 @@ namespace DanceApp1.Models.ViewModels
 
         public ShowcaseDto SelectedShowcase { get; set; }
         public IEnumerable<GroupDto> ShowcaseGroups { get; set; }
+        public IEnumerable<GroupDto> AvailableGroups { get; set; }
     }
 }
