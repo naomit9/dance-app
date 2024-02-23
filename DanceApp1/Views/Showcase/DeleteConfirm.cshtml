@@ -13,14 +13,12 @@
         This action cannot be undone.
     </p>
     <nav>
-        <form method="POST" action="/Showcase/Delete/@Model.showcaseId">
-            <button class="delbtn" style="color:#ab2020;">Confirm Delete</button>
+        <form method="POST" action="/Showcase/Delete/@Model.showcaseId" style="display: inline;">
+            <button class="btn btn-outline-danger">Confirm Delete</button>
         </form>
-    </nav>
-    <nav>
-        <form method="POST" action="/Showcase/Details/@Model.showcaseId">
-            <button>Cancel</button>
+
+        <form method="POST" action="/Showcase/Details/@Model.showcaseId" style="display: inline;">
+            <button class="btn btn-outline-primary">Cancel</button>
         </form>
     </nav>
 </div>
-

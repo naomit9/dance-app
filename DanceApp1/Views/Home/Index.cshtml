@@ -3,31 +3,92 @@
 }
 
 <main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+
+    <div lc-helper="background" class="container-fluid py-5 mb-4 d-flex justify-content-center" style="  background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1124&amp;q=100');
+    background-position: center;
+background-size:cover;
+background-repeat:no-repeat">
+        <div class="p-5 mb-4 lc-block col-xxl-7 col-lg-8 col-12" style=" backdrop-filter: blur(6px) saturate(102%);
+    -webkit-backdrop-filter: blur(6px) saturate(102%);
+    background-color: rgba(255, 255, 255, 0.45);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);">
+            <div class="lc-block">
+                <div editable="rich">
+                    <h2 class="fw-bolder display-3">Danceforce Now</h2>
+                </div>
+            </div>
+            <div class="lc-block col-md-8">
+                <div editable="rich">
+                    <p class="lead">
+                        Designed with both dancers and enthusiasts in mind, Danceforce Now provides a centralized platform for discovering, showcasing, and celebrating the artistry of dance
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="lc-block">
+                    <span editable="inline" class="small mt-4 d-block">DANCEFORCE NOW</span>
+                    <h2 editable="inline" class="display-2 mb-0"><b>Features</b></h2>
+                    <p editable="inline"> Join us and let your creativity take center stage in the vibrant community of Danceforce Now. </p>
+                </div><!-- /lc-block -->
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="p-lg-5 p-4 shadow">
+                    <div class="lc-block mb-4">
+                        <img alt="" class="img-fluid" src="https://cdn.livecanvas.com/media/svg/undraw/product-teardown.svg" style="height:10vh">
+
+
+                        <h4 class="my-3" editable="inline"></h4>
+                        <p editable="inline">
+                            Danceforce Now allows you to view a list of dancers, upload their profile picture, change their information and see which group they belong to.
+                        </p>
+                        <a class="btn btn-outline-primary" href="/Dancer/List" role="button">View Dancers</a>
+                    </div><!-- /lc-block -->
+                </div>
+            </div><!-- /col -->
+            <div class="col-md-4">
+                <div class="p-lg-5 p-4 shadow">
+                    <div class="lc-block mb-4">
+                        <img alt="" class="img-fluid" src="https://cdn.livecanvas.com/media/svg/undraw/no-data.svg" style="height:10vh">
+
+                        <h4 class="my-3" editable="inline"></h4>
+                        <p editable="inline">
+                            Danceforce Now allows you to view many different dance groups around the city and you can edit their information. You can view dancers in each group and how many showcases they have performed in
+                        </p>
+
+                        <a class="btn btn-outline-primary" href="/Group/List" role="button">View Dance Groups</a>
+                    </div><!-- /lc-block -->
+                </div>
+            </div><!-- /col -->
+            <div class="col-md-4">
+                <div class="p-lg-5 p-4 shadow">
+                    <div class="lc-block mb-4">
+                        <img alt="" class="img-fluid" src="https://cdn.livecanvas.com/media/svg/undraw/select.svg" style="height:10vh">
+
+                        <h4 class="my-3" editable="inline"></h4>
+                        <p editable="inline">
+                            Danceforce Now allows you to view all the dance showcase events around the country, along with the date and location. 
+                            You can view which groups participate in the showcase, and add or remove groups from the showcase.
+                        </p>
+
+
+                        <a class="btn btn-outline-primary" href="/Showcase/List" role="button">View Showcases</a>
+                    </div><!-- /lc-block -->
+                </div>
+            </div><!-- /col -->
+        </div>
+    </div>
+
 </main>

@@ -6,41 +6,48 @@
 
 <h2>Update Dancer Information</h2>
 
-<form  method="POST"  action="/Dancer/Update/@Model.selecteddancer.dancerId" enctype="multipart/form-data">
-    <input type="text" style="display:none;" name="dancerId" value="@Model.selecteddancer.dancerId" />
-    <div>
-        <label>First Name:  </label> <input type="text" name="firstName" value="@Model.selecteddancer.firstName" />
-    </div>
-    <div>
-        <label>Last Name:  </label> <input type="text" name="lastName" value="@Model.selecteddancer.lastName" />
-    </div>
-    <div>
-        <label>Dance Style: </label> <input type="text" name="danceStyle" value="@Model.selecteddancer.danceStyle" />
-    </div>
-    <div>
-        <label>Dancer Bio: </label> <input type="text" name="dancerBio" value="@Model.selecteddancer.dancerBio" />
-    </div>
-    <div>
-        <label>Group ID: </label>
-        <select name="groupId">
-            @foreach (var group in Model.GroupOptions)
-            {
-                <option value="@group.groupId">@group.groupName</option>
-            }
-        </select>
-    </div>
+<div style="display: flex; justify-content: space-between;">
+    <form method="POST" action="/Dancer/Update/@Model.selecteddancer.dancerId" enctype="multipart/form-data">
+        <input type="text" style="display:none;" name="dancerId" value="@Model.selecteddancer.dancerId" />
+        <div class="mb-3">
+            <label class="form-label">First Name:  </label> 
+            <input class="form-control" type="text" name="firstName" value="@Model.selecteddancer.firstName" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Last Name:  </label> 
+            <input class="form-control" type="text" name="lastName" value="@Model.selecteddancer.lastName" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Dance Style: </label>
+            <input class="form-control" type="text" name="danceStyle" value="@Model.selecteddancer.danceStyle" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Dancer Bio: </label> 
+            <input class="form-control" type="text" name="dancerBio" value="@Model.selecteddancer.dancerBio" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Group ID: </label>
+            <select name="groupId" class="form-select" aria-label="Default select example">
+                @foreach (var group in Model.GroupOptions)
+                {
+                    <option value="@group.groupId">@group.groupName</option>
+                }
+            </select>
+        </div>
 
-    <div>
-        <input type="file" name="dancerPic" />
-    </div>
+        <div class="form-group" style="margin: 1rem 0;">
+            <label for="PhotoField">Upload Photo</label>
+            <input type="file" name="dancerPic" />
+        </div>
 
-    <div>
-        <input type="submit" value="Update Dancer"/>
-    </div>
-</form>
+        <div style="margin: 1rem 0;">
+            <input type="submit" class="btn btn-success" value="Update Dancer" />
+        </div>
+    </form>
+</div>
 
-<nav>
+<nav >
     <form method="POST" action="/Dancer/Details/@Model.selecteddancer.dancerId">
-        <button>Cancel</button>
+        <button class="btn btn-danger">Cancel</button>
     </form>
 </nav>

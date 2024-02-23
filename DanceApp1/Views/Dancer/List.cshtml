@@ -3,16 +3,14 @@
     ViewBag.Title = "List";
 }
 
-<h2>List of Dancers</h2>
-
-
-<nav>
+<nav style="display: flex; align-items: center;" >
+    <h2 style="margin-right: 20px;">List of Dancers</h2>
     <form method="GET" action="/Dancer/New">
-        <button>Add New Dancer</button>
+        <button class="btn btn-success">Add New Dancer</button>
     </form>
 </nav>
 
 @foreach (var dancer in Model)
 {
-    <p><a href="/Dancer/Details/@dancer.dancerId">@dancer.firstName @dancer.lastName </a></p>
+    <p style="margin:1rem 0;"><a href="/Dancer/Details/@dancer.dancerId">@dancer.firstName @dancer.lastName  </a></p>
 }

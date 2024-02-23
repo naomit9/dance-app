@@ -6,24 +6,29 @@
 
 <h2>Update Showcase Information</h2>
 
-<form action="/Showcase/Update/@Model.showcaseId" method="POST">
-    <input type="text" name="showcaseId" value="@Model.showcaseId"/>
-    <div>
-        <label>Showcase Name:  </label> <input type="text" name="showcaseName" value="@Model.showcaseName" />
-    </div>
-    <div>
-        <label>Date: </label> <input type="datetime" name="Date" value="@Model.Date" />
-    </div>
-    <div>
-        <label>Location: </label> <input type="text" name="showcaseLocation" value="@Model.showcaseLocation" />
-    </div>
-    <div>
-        <input type="submit" value="Update Showcase" />
-    </div>
-</form>
+<div style="display: flex; justify-content: space-between;">
+    <form action="/Showcase/Update/@Model.showcaseId" method="POST">
+        <input type="text" style="display:none;" name="showcaseId" value="@Model.showcaseId" />
+        <div class="mb-3">
+            <label class="form-label">Showcase Name:  </label> 
+            <input class="form-control" type="text" name="showcaseName" value="@Model.showcaseName" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Date: </label> 
+            <input class="form-control" type="datetime" name="Date" value="@Model.Date" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Location: </label> 
+            <input class="form-control" type="text" name="showcaseLocation" value="@Model.showcaseLocation" />
+        </div>
+        <div style="margin: 1rem 0;">
+            <input class="btn btn-success" type="submit" value="Update Showcase" />
+        </div>
+    </form>
+</div>
 
 <nav>
     <form method="POST" action="/Showcase/Details/@Model.showcaseId">
-        <button>Cancel</button>
+        <button class="btn btn-danger">Cancel</button>
     </form>
 </nav>

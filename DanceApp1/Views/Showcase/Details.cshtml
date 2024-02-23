@@ -4,45 +4,51 @@
     ViewBag.Title = "Details";
 }
 
-<a href="/Showcase/List">Back To List</a>
+<a href="/Showcase/List" class="btn btn-primary" style="margin-bottom:2rem;">Back To List</a>
 
+<div class="card" style="width: fit-content;">
+    <div class="card-body">
+        <h3 class="card-title" style="margin:1rem;">@Model.SelectedShowcase.showcaseName</h3>
+        <div class="card-text"><strong>Date:</strong> @Model.SelectedShowcase.Date</div>
+        <div class="card-text"><strong>Location:</strong> @Model.SelectedShowcase.showcaseLocation</div>
 
-<h3>@Model.SelectedShowcase.showcaseName</h3>
-<div><strong>Date:</strong> @Model.SelectedShowcase.Date</div>
-<div><strong>Location:</strong> @Model.SelectedShowcase.showcaseLocation</div>
+        <nav style="margin:1rem;">
+            <form method="POST" action="/Showcase/Edit/@Model.SelectedShowcase.showcaseId" style="display: inline;" class="card-link">
+                <button class="btn btn-info">Edit</button>
+            </form>
 
+            <form method="POST" action="/Showcase/DeleteConfirm/@Model.SelectedShowcase.showcaseId" style="display: inline;" class="card-link">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </nav>
 
-<nav>
-    <form method="POST" action="/Showcase/Edit/@Model.SelectedShowcase.showcaseId">
-        <button>Edit</button>
-    </form>
-</nav>
+    </div>
+</div>
 
-<nav>
-    <form method="POST" action="/Showcase/DeleteConfirm/@Model.SelectedShowcase.showcaseId">
-        <button style="color:#ab2020;">Delete</button>
-    </form>
-</nav>
+<div style="margin:2rem;">
 
-<div>
-    <h4>
-        Groups participated:
-    </h4>
-    @foreach (var group in Model.ShowcaseGroups)
-    {
-        <a href="/Group/Details/@group.groupId">@group.groupName</a>
-        <a style="color:#ff0000" href="/Showcase/Unassociate/@Model.SelectedShowcase.showcaseId?groupId=@group.groupId">[X]</a> <br />
-    }
-    <div>
+    <div style="display: inline-block; margin-right: 20px;">
+        <h4>
+            Groups participated:
+        </h4>
+        @foreach (var group in Model.ShowcaseGroups)
+        {
+            <a href="/Group/Details/@group.groupId">@group.groupName</a>
+            <a style="color:#ff0000" href="/Showcase/Unassociate/@Model.SelectedShowcase.showcaseId?groupId=@group.groupId">[X]</a> <br />
+        }
+    </div>
+
+    <div style="display: inline-block;">
         <h5>Add new Group for @Model.SelectedShowcase.showcaseName event:</h5>
         <form method="POST" action="/Showcase/Associate/@Model.SelectedShowcase.showcaseId">
-            <select name="groupId">
+            <select name="groupId" class="form-select" aria-label="Default select example" style="margin-bottom:1rem;">
                 @foreach (var group in Model.AvailableGroups)
                 {
                     <option value="@group.groupId">@group.groupName</option>
                 }
             </select>
-            <input type="submit" value="Associate Group" />
+            <input type="submit" value="Add Associate Group"  class="btn btn-success"/>
         </form>
     </div>
+
 </div>

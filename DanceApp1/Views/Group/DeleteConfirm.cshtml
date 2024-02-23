@@ -13,13 +13,12 @@
         This action cannot be undone.
     </p>
     <nav>
-        <form method="POST" action="/Group/Delete/@Model.groupId">
-            <button class="delbtn" style="color:#ab2020;">Confirm Delete</button>
+        <form method="POST" action="/Group/Delete/@Model.groupId" style="display: inline;">
+            <button class="btn btn-outline-danger">Confirm Delete</button>
         </form>
-    </nav>
-    <nav>
-        <form method="POST" action="/Group/Details/@Model.groupId">
-            <button>Cancel</button>
+
+        <form method="POST" action="/Group/Details/@Model.groupId" style="display: inline;">
+            <button class="btn btn-outline-primary">Cancel</button>
         </form>
     </nav>
 </div>

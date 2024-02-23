@@ -6,24 +6,29 @@
 
 <h2>Update Group Information</h2>
 
-<form action="/Group/Update/@Model.groupId" method="POST">
-    <input type="text" style="display:none;" name="groupId" value="@Model.groupId"/>
-    <div>
-        <label>Group Name:  </label> <input type="text" name="groupName" value="@Model.groupName" />
-    </div>
-    <div>
-        <label>Dance Style:  </label> <input type="text" name="groupStyle" value="@Model.groupStyle" />
-    </div>
-    <div>
-        <label>Group Bio: </label> <input type="text" name="groupBio" value="@Model.groupBio" />
-    </div>
-    <div>
-        <input type="submit" value="Update Group" />
-    </div>
-</form>
+<div style="display: flex; justify-content: space-between;">
+    <form action="/Group/Update/@Model.groupId" method="POST">
+        <input type="text" style="display:none;" name="groupId" value="@Model.groupId" />
+        <div class="mb-3">
+            <label class="form-label">Group Name:  </label> 
+            <input class="form-control" type="text" name="groupName" value="@Model.groupName" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Dance Style:  </label> 
+            <input class="form-control" type="text" name="groupStyle" value="@Model.groupStyle" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Group Bio: </label> 
+            <input class="form-control" type="text" name="groupBio" value="@Model.groupBio" />
+        </div>
+        <div class="mb-3">
+            <input type="submit" class="btn btn-success" value="Update Group" />
+        </div>
+    </form>
+</div>
 
 <nav>
     <form method="POST" action="/Group/Details/@Model.groupId">
-        <button>Cancel</button>
+        <button class="btn btn-danger">Cancel</button>
     </form>
 </nav>

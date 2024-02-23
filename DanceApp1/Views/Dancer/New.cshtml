@@ -6,35 +6,41 @@
 
 <h2>Create Dancer</h2>
 
-<form action="/Dancer/Create" method="POST">
-    <div>
-        <label>First Name:  </label> <input type="text" name="firstName" />
-    </div>
-    <div>
-        <label>Last Name:  </label> <input type="text" name="lastName" />
-    </div>
-    <div>
-        <label>Dance Style: </label><input type="text" name="danceStyle" />
-    </div>
-    <div>
-        <label>Dancer Bio: </label> <input type="text" name="dancerBio" />
-    </div>
-    <div>
-        <label>Group: </label> 
-        <select name="groupId">
-            @foreach (var group in Model)
-            {
-                <option value="@group.groupId">@group.groupName</option>
-            }
-        </select>
-    </div>
-    <div>
-        <input type="submit" value="Add Dancer" />
-    </div>
-</form>
+<div style="display: flex; justify-content: space-between;">
+    <form action="/Dancer/Create" method="POST">
+        <div class="mb-3">
+            <label class="form-label">First Name:  </label> 
+            <input class="form-control" type="text" name="firstName" placeholder="Enter First Name"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Last Name:  </label> 
+            <input class="form-control" type="text" name="lastName" placeholder="Enter Last Name" />
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Dance Style: </label>
+            <input class="form-control" type="text" name="danceStyle" placeholder="Enter Dance Style"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Dancer Bio: </label> 
+            <input class="form-control" type="text" name="dancerBio" placeholder="Enter Dancer Bio" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Group: </label> 
+            <select name="groupId"  class="form-select">
+                @foreach (var group in Model)
+                {
+                    <option value="@group.groupId">@group.groupName</option>
+                }
+            </select>
+        </div>
 
-<nav>
-    <form method="POST" action="/Dancer/List">
-        <button>Cancel</button>
+        <div>
+            <input type="submit" value="Add Dancer" class="btn btn-success" style="margin-top:1rem;" />
+        </div>
     </form>
-</nav>
+
+
+    <form method="POST" action="/Dancer/List">
+       <button class="btn btn-danger">Cancel</button>
+    </form>
+</div>

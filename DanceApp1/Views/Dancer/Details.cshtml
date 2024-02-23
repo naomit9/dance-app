@@ -3,23 +3,24 @@
     ViewBag.Title = "Details";
 }
 
-<a href="/Dancer/List">Back To List</a>
+<a class="btn btn-primary" style="margin-bottom:2rem;" href="/Dancer/List">Back To List</a>
+
+<div class="card" style="width: fit-content;">
+    <div class="card-body">
+        <h3 class="card-title" style="margin:1rem;">@Model.firstName @Model.lastName</h3>
+        <div class="card-text"><strong>Dance Style:</strong> @Model.danceStyle</div>
+        <div class="card-text"><strong>Dance Group:</strong> @Model.groupName</div>
+        <div class="card-text"><strong>Dancer Bio:</strong> @Model.dancerBio</div>
 
 
-<h3>@Model.firstName @Model.lastName</h3>
-<div><strong>Dance Style:</strong> @Model.danceStyle</div>
-<div><strong>Dance Group:</strong> @Model.groupName</div>
-<div><strong>Dancer Bio:</strong> @Model.dancerBio</div>
+        <nav style="margin:1rem;">
+            <form method="POST" action="/Dancer/Edit/@Model.dancerId" style="display: inline;" class="card-link">
+                <button class="btn btn-info">Edit</button>
+            </form>
 
-
-<nav>
-    <form method="POST" action="/Dancer/Edit/@Model.dancerId">
-        <button>Edit</button>
-    </form>
-</nav>
-
-<nav>
-    <form method="POST" action="/Dancer/DeleteConfirm/@Model.dancerId">
-        <button style="color:#ab2020;">Delete</button>
-    </form>
-</nav>
+            <form method="POST" action="/Dancer/DeleteConfirm/@Model.dancerId" style="display: inline;" class="card-link">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </nav>
+    </div>
+</div>

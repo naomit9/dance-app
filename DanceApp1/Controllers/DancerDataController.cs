@@ -160,85 +160,64 @@ namespace DanceApp1.Controllers
         }
 
 
-
-        /// <summary>
-        /// Receives dancer picture data uploads it to the webserver and updates the dancer's HasPic option
-        /// </summary>
-        /// <param name="id">Dancer ID</param>
-        /// <returns>status code 200 if successful</returns>
-        /// <example>
-        /// HEADER: enctype=multipart/form-data
-        ///POST: api/dancerdata/UploadDancerPic/3
-        ///curl -F dancerpic=@file.jpg "api/dancerdata/uploaddancerpic/3"
-        ///FORM-DATA: image
-        /// </example>
-
         [HttpPost]
         public IHttpActionResult UploadDancerPic(int id)
         {
-
-            bool haspic = false;
-            string picextension;
+            // Check if the request contains multipart form data
             if (Request.Content.IsMimeMultipartContent())
             {
-                Debug.WriteLine("Received multipart form data");
+                // Get the file from the request
+                var dancerPic = HttpContext.Current.Request.Files[0];
 
-                int numfiles = HttpContext.Current.Request.Files.Count;
-                Debug.WriteLine("Files received: " + numfiles);
-
-                // Check if a file is posted
-                if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                // Check if the file is not null and has content
+                if (dancerPic != null && dancerPic.ContentLength > 0)
                 {
-                    var dancerPic = HttpContext.Current.Request.Files[0];
-                    // Check if a file is empty
-                    if (dancerPic.ContentLength > 0)
+                    try
                     {
-                        // Establish valid file types
-                        var valtypes = new[] { "jpeg", "jpg", "png", "gif", "avif" };
-                        var extension = Path.GetExtension(dancerPic.FileName).Substring(1);
-                        // Check the extension of the file
-                        if (valtypes.Contains(extension))
+                        // Define the directory path to save the file
+                        string directoryPath = HttpContext.Current.Server.MapPath("~/Content/Images/Dancers/");
+
+                        // Create the directory if it doesn't exist
+                        if (!Directory.Exists(directoryPath))
                         {
-                            try
-                            {
-                                string fn = id + "." + extension;
-                                // Direct file path to /Content/images/dancers/{id}.{extension}
-                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Images/Dancers/"), fn);
-                                // Save the file
-                                dancerPic.SaveAs(path);
-
-                                // If these are good then set these fields
-                                haspic = true;
-                                picextension = extension;
-
-                                // Update the dancer haspic and picextension fields in the database
-                                Dancer SelectedDancer = db.Dancers.Find(id);
-                                SelectedDancer.DancerHasPic = haspic;
-                                SelectedDancer.PicExtension = extension;
-                                db.Entry(SelectedDancer).State = EntityState.Modified;
-
-                                db.SaveChanges();
-
-                            }
-                            catch (Exception ex)
-                            {
-                                Debug.WriteLine(" Dancer image was not saved successfully");
-                                Debug.WriteLine("Exception: " + ex);
-                                return BadRequest();
-                            }
+                            Directory.CreateDirectory(directoryPath);
                         }
+
+                        // Generate a unique file name based on the dancer ID and file extension
+                        string fileName = id + Path.GetExtension(dancerPic.FileName);
+
+                        // Combine the directory path and file name to get the full file path
+                        string filePath = Path.Combine(directoryPath, fileName);
+
+                        // Save the file to the server
+                        dancerPic.SaveAs(filePath);
+
+                        // Update the dancer record in the database with the file path
+                        Dancer selectedDancer = db.Dancers.Find(id);
+                        selectedDancer.PicExtension = filePath; // Assuming DancerPicPath is a property in the Dancer model
+                        db.Entry(selectedDancer).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        return Ok(filePath); // Return the file path if needed
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Failed to save dancer image: " + ex.Message);
+                        return InternalServerError(ex);
                     }
                 }
-
-                return Ok();
-
+                else
+                {
+                    return BadRequest("No file uploaded or file is empty.");
+                }
             }
             else
             {
-                return BadRequest();
+                return BadRequest("Invalid request format.");
             }
-
         }
+
+
 
 
         /// <summary>

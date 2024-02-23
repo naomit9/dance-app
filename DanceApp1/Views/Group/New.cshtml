@@ -5,23 +5,28 @@
 
 <h2>Create Group</h2>
 
-<form action="/Group/Create" method="POST">
-    <div>
-        <label>Group Name:  </label> <input type="text" name="groupName" />
-    </div>
-    <div>
-        <label>Group Style:  </label> <input type="text" name="groupStyle" />
-    </div>
-    <div>
-        <label>Group Bio: </label> <input type="text" name="groupBio" />
-    </div>
-    <div>
-        <input type="submit" value="Add Group" />
-    </div>
-</form>
-
-<nav>
-    <form method="POST" action="/Group/List">
-        <button>Cancel</button>
+<div style="display: flex; justify-content: space-between;">
+    <form action="/Group/Create" method="POST">
+        <div class="mb-3">
+            <label class="form-label">Group Name:  </label> 
+            <input class="form-control" type="text" name="groupName" placeholder="Enter Dance Group"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Group Style:  </label> 
+            <input class="form-control" type="text" name="groupStyle" placeholder="Enter Dance Style"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Group Bio: </label>
+            <input class="form-control" type="text" name="groupBio"  placeholder="Enter Group Bio"/>
+        </div>
+        <div>
+            <input type="submit" value="Add Group" class="btn btn-success" style="margin-top:1rem;"  />
+        </div>
     </form>
-</nav>
+
+    <nav>
+        <form method="POST" action="/Group/List">
+            <button class="btn btn-danger">Cancel</button>
+        </form>
+    </nav>
+</div>

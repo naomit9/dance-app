@@ -4,49 +4,51 @@
     ViewBag.Title = "Details";
 }
 
-<a href="/Group/List">Back To List</a>
+<a href="/Group/List" class="btn btn-primary" style="margin-bottom:2rem;">Back To List</a>
 
+<div class="card" style="width: fit-content;">
+    <div class="card-body">
+        <h3 class="card-title" style="margin:1rem;">@Model.SelectedGroup.groupName</h3>
+        <div class="card-text"><strong>Dance Style:</strong> @Model.SelectedGroup.groupStyle</div>
+        <div class="card-text"><strong>Group Bio:</strong> @Model.SelectedGroup.groupBio</div>
 
-<h3>@Model.SelectedGroup.groupName</h3>
-<div><strong>Dance Style:</strong> @Model.SelectedGroup.groupStyle</div>
-<div><strong>Group Bio:</strong> @Model.SelectedGroup.groupBio</div>
+        <nav style="margin:1rem;">
+            <form method="POST" action="/Group/Edit/@Model.SelectedGroup.groupId" style="display: inline;" class="card-link">
+                <button class="btn btn-info">Edit</button>
+            </form>
 
-<nav>
-    <form method="POST" action="/Group/Edit/@Model.SelectedGroup.groupId">
-        <button>Edit</button>
-    </form>
-</nav>
-
-<nav>
-    <form method="POST" action="/Group/DeleteConfirm/@Model.SelectedGroup.groupId">
-        <button style="color:#ab2020;">Delete</button>
-    </form>
-</nav>
-
-<div style="margin-top:100px;">
-    <h4>Dancers in this group: </h4>
-
-    @foreach (var dancer in Model.RelatedDancers)
-            {
-                <ul>
-                    <li>
-                        <a href="/Dancer/Details/@dancer.dancerId">@dancer.firstName @dancer.lastName</a>
-                    </li>
-                </ul>
-                
-            }
+            <form method="POST" action="/Group/DeleteConfirm/@Model.SelectedGroup.groupId" style="display: inline;" class="card-link">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </nav>
+    </div>
 </div>
 
-<div style="margin-top:2rem;">
-    <h4>Showcases performed: </h4>
 
-    @foreach (var showcase in Model.ShowcaseAttended)
-    {
-        <ul>
-            <li>
-                <a href="/Showcase/Details/@showcase.showcaseId">@showcase.showcaseName</a>
-            </li>
-        </ul>
+    <div style="margin-top:2rem;">
+        <h4>Dancers in this group: </h4>
 
-    }
-</div>
+        @foreach (var dancer in Model.RelatedDancers)
+        {
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a style="text-decoration:none;" class="list-group-item list-group-item-action" href="/Dancer/Details/@dancer.dancerId">@dancer.firstName @dancer.lastName </a>
+                </li>
+            </ul>
+
+        }
+    </div>
+
+    <div style="margin-top:2rem;">
+        <h4>Showcases performed: </h4>
+
+        @foreach (var showcase in Model.ShowcaseAttended)
+        {
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a style="text-decoration:none;" class="list-group-item list-group-item-action" href="/Showcase/Details/@showcase.showcaseId">@showcase.showcaseName</a>
+                </li>
+            </ul>
+
+        }
+    </div>
