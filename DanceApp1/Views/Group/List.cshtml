@@ -3,15 +3,45 @@
     ViewBag.Title = "List";
 }
 
-<nav style="display: flex; align-items: center;">
-    <h2 style="margin-right: 20px;">List of Dance Groups</h2>
-    <form method="GET" action="/Group/New">
-        <button class="btn btn-success">Add New Group</button>
-    </form>
-</nav>
+<div class="d-flex min-vh-100">
+    <div class="container align-self-center">
+        <div class="row justify-content-center">
 
-@foreach (var group in Model)
-            {
-                <p><a href="/Group/Details/@group.groupId">@group.groupName</a></p>
-            } 
+            <div class="col-12 col-lg-8 col-xl-6 text-center">
 
+                <div class="lc-block mb-2">
+                    <img class="img-fluid w-75" alt="Photo by Sebastian Pichler" src="https://plus.unsplash.com/premium_photo-1685202713251-06bb2641be74?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                </div>
+                <div class="lc-block mb-4">
+                    <div editable="rich">
+
+                        <h2>Here is our list of dance groups on Danceforce Now</h2>
+
+                        <p>From effortlessly managing dancer profiles, including their bios and styles, to organizing dynamic dance groups and coordinating captivating showcases, our comprehensive tools provide you with the control and flexibility you need. </p>
+                    </div>
+                </div>
+                <form method="GET" action="/Group/New">
+                    <button class="btn btn-success">Add New Group</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card-container" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+    @foreach (var group in Model)
+    {
+        <div class="card" style="width: 18rem; margin-top: 2rem;">
+            <div class="card-body">
+                <div class="card-text"><strong>@group.groupName</strong></div>
+                <nav style="margin-top: 1rem;">
+                    <form method="POST" action="/Group/Details/@group.groupId">
+                        <button class="btn btn-info">View Group</button>
+                    </form>
+                </nav>
+            </div>
+        </div>
+    }
+</div>
