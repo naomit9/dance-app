@@ -15,6 +15,7 @@ using static System.Data.Entity.Infrastructure.Design.Executor;
 using System.IO;
 using System.Web;
 
+
 namespace DanceApp1.Controllers
 {
     public class DancerDataController : ApiController
@@ -26,7 +27,7 @@ namespace DanceApp1.Controllers
         /// </summary>
         /// <returns>A list of dancer's first name and last name that links to their bio page</returns>
         /// <example>GET: api/DancerData/ListDancers</example>
-        [HttpGet]
+      /*  [HttpGet]
         public IEnumerable<DancerDto> ListDancers()
         {
             List<Dancer> Dancers = db.Dancers.ToList();
@@ -43,7 +44,42 @@ namespace DanceApp1.Controllers
             }));
 
             return DancerDtos;
+        }*/
+
+
+        [HttpGet]
+        [Route("api/DancerData/ListDancers/{SearchKey?}")]
+        public IEnumerable<DancerDto> ListDancers(string SearchKey=null)
+        {
+            // Retrieve all dancers
+            List<Dancer> Dancers = db.Dancers.ToList();
+            List<DancerDto> DancerDtos = new List<DancerDto>();
+
+            // Filter the list of dancers based on the SearchKey
+            if (SearchKey!=null)
+            {
+                Debug.WriteLine("searching here");
+                Dancers = db.Dancers.Where(d =>
+                    d.firstName.Contains(SearchKey) ||  // Check if the first name contains the search key
+                    d.lastName.Contains(SearchKey) // Check if the first name contains the search key
+                ).ToList();
+            }
+
+            // Convert the filtered list into a DancerDto object
+            Dancers.ForEach(d => DancerDtos.Add(new DancerDto()
+            {
+                dancerId = d.dancerId,
+                firstName = d.firstName,
+                lastName = d.lastName,
+                danceStyle = d.danceStyle,
+                dancerBio = d.dancerBio,
+                groupName = d.Group.groupName
+            }));
+
+            return DancerDtos;
         }
+        
+
 
         /// <summary>
         /// Return info about all dancers related to a particular group ID
@@ -135,9 +171,7 @@ namespace DanceApp1.Controllers
 
             db.Entry(dancer).State = EntityState.Modified;
 
-            // Picture update is handled by another method
-            db.Entry(dancer).Property(d => d.DancerHasPic).IsModified = false;
-            db.Entry(dancer).Property(d => d.PicExtension).IsModified = false;
+            
             try
             {
                 db.SaveChanges();
@@ -158,65 +192,6 @@ namespace DanceApp1.Controllers
             Debug.WriteLine("None of the conditions triggered");
             return StatusCode(HttpStatusCode.NoContent);
         }
-
-
-        [HttpPost]
-        public IHttpActionResult UploadDancerPic(int id)
-        {
-            // Check if the request contains multipart form data
-            if (Request.Content.IsMimeMultipartContent())
-            {
-                // Get the file from the request
-                var dancerPic = HttpContext.Current.Request.Files[0];
-
-                // Check if the file is not null and has content
-                if (dancerPic != null && dancerPic.ContentLength > 0)
-                {
-                    try
-                    {
-                        // Define the directory path to save the file
-                        string directoryPath = HttpContext.Current.Server.MapPath("~/Content/Images/Dancers/");
-
-                        // Create the directory if it doesn't exist
-                        if (!Directory.Exists(directoryPath))
-                        {
-                            Directory.CreateDirectory(directoryPath);
-                        }
-
-                        // Generate a unique file name based on the dancer ID and file extension
-                        string fileName = id + Path.GetExtension(dancerPic.FileName);
-
-                        // Combine the directory path and file name to get the full file path
-                        string filePath = Path.Combine(directoryPath, fileName);
-
-                        // Save the file to the server
-                        dancerPic.SaveAs(filePath);
-
-                        // Update the dancer record in the database with the file path
-                        Dancer selectedDancer = db.Dancers.Find(id);
-                        selectedDancer.PicExtension = filePath; // Assuming DancerPicPath is a property in the Dancer model
-                        db.Entry(selectedDancer).State = EntityState.Modified;
-                        db.SaveChanges();
-
-                        return Ok(filePath); // Return the file path if needed
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine("Failed to save dancer image: " + ex.Message);
-                        return InternalServerError(ex);
-                    }
-                }
-                else
-                {
-                    return BadRequest("No file uploaded or file is empty.");
-                }
-            }
-            else
-            {
-                return BadRequest("Invalid request format.");
-            }
-        }
-
 
 
 

@@ -26,24 +26,30 @@ namespace DanceApp1.Controllers
         /// To communicate with our dancer data api to retrieve a list of dancers
         /// </summary>
         /// <returns>A list of dancers's names</returns>
-        /// <example>GET: Dancer/List</example>
-        public ActionResult List()
+        /// <example>GET: Dancer/List/{fname?} OR GET: Dancer/List/{lname?}</example>
+        public ActionResult List(string SearchKey=null)
         {
             // curl https://localhost:44306/api/DancerData/ListDancers
            
             // Establish URL Endpoint
-            string url = "DancerData/ListDancers";
+            string url = "DancerData/ListDancers/" + SearchKey;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            //Debug.WriteLine("The response code is ");
-            //Debug.WriteLine(response.StatusCode);
+            Debug.WriteLine("The response code is ");
+            Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+                IEnumerable<DancerDto> dancers = response.Content.ReadAsAsync<IEnumerable<DancerDto>>().Result;
 
-            IEnumerable<DancerDto> dancers = response.Content.ReadAsAsync<IEnumerable<DancerDto>>().Result;
+                Debug.WriteLine("Number of dancers received: ");
+                Debug.WriteLine(dancers.Count());
 
-            //Debug.WriteLine("Number of dancers received: ");
-            //Debug.WriteLine(dancers.Count());
-
-            return View(dancers);
+                return View(dancers);
+            }
+            else
+            {
+                return View("Error");
+            }
         }
 
         /// <summary>

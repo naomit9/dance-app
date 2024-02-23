@@ -3,14 +3,30 @@
     ViewBag.Title = "List";
 }
 
-<nav style="display: flex; align-items: center;" >
+<nav style="display: flex; align-items: center;">
     <h2 style="margin-right: 20px;">List of Dancers</h2>
+
     <form method="GET" action="/Dancer/New">
         <button class="btn btn-success">Add New Dancer</button>
     </form>
 </nav>
 
+<div style="width:30%; margin-top:2rem;">
+    <div style="width: 300px; position: relative; display: flex;">
+        <form method="GET" action="/Dancer/List">
+            <input type="text" name="SearchKey" placeholder="Search dancer" style="width:200px; border:3px solid #00b4cc; border-right:none; padding:5px; height:auto;border-radius:5px 0 0 5px; outline:none; color:#9DBFAF;" />
+
+        </form>
+        <button type="submit" class="searchButton" style=" width: 100px; height: auto; border: 1px solid #00B4CC; background: #00B4CC; text-align: center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px;">
+            Search
+        </button>
+    </div>
+</div>
+
+
+
 @foreach (var dancer in Model)
 {
-    <p style="margin:1rem 0;"><a href="/Dancer/Details/@dancer.dancerId">@dancer.firstName @dancer.lastName  </a></p>
+    <p class="text-xl heading"><a href="/Dancer/Details/@dancer.dancerId">@dancer.firstName @dancer.lastName  </a></p>
+
 }

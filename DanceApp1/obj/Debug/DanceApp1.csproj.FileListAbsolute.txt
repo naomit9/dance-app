@@ -239,3 +239,4 @@ C:\Users\nhutr\Source\Repos\dance-app\DanceApp1\obj\Debug\DanceApp1.pdb
 C:\Users\nhutr\source\repos\dance-app\DanceApp1\obj\Debug\DanceApp1.Migrations.dancer1.resources
 C:\Users\nhutr\source\repos\dance-app\DanceApp1\obj\Debug\DanceApp1.Migrations.showcase1.resources
 C:\Users\nhutr\source\repos\dance-app\DanceApp1\obj\Debug\DanceApp1.Migrations.dancer2.resources
+C:\Users\nhutr\source\repos\dance-app\DanceApp1\obj\Debug\DanceApp1.Migrations.dancer3.resources
