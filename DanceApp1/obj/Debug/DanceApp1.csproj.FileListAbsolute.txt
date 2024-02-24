@@ -240,3 +240,4 @@ C:\Users\nhutr\source\repos\dance-app\DanceApp1\obj\Debug\DanceApp1.Migrations.d
 C:\Users\nhutr\source\repos\dance-app\DanceApp1\obj\Debug\DanceApp1.Migrations.showcase1.resources
 C:\Users\nhutr\source\repos\dance-app\DanceApp1\obj\Debug\DanceApp1.Migrations.dancer2.resources
 C:\Users\nhutr\source\repos\dance-app\DanceApp1\obj\Debug\DanceApp1.Migrations.dancer3.resources
+C:\Users\nhutr\source\repos\dance-app\DanceApp1\obj\Debug\DanceApp1.Migrations.dancer4.resources

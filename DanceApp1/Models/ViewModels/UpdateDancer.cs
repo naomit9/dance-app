@@ -10,7 +10,7 @@ namespace DanceApp1.Models.ViewModels
         // This viewmodel is a class which stores info that we need to present to Dancer/Update/{}
 
         // The existing dancer info
-        public DancerDto selecteddancer {  get; set; }
+        public Dancer selecteddancer {  get; set; }
 
         // All groups to choose from when updating this dancer
         public IEnumerable<GroupDto> GroupOptions { get; set; }

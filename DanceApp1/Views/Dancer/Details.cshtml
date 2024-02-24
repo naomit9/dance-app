@@ -1,4 +1,4 @@
-﻿@model DanceApp1.Models.DancerDto
+﻿@model DanceApp1.Models.ViewModels.UpdateDancer
 @{
     ViewBag.Title = "Details";
 }
@@ -7,18 +7,28 @@
 
 <div class="card" style="width: fit-content;">
     <div class="card-body">
-        <h3 class="card-title" style="margin:1rem;">@Model.firstName @Model.lastName</h3>
-        <div class="card-text"><strong>Dance Style:</strong> @Model.danceStyle</div>
-        <div class="card-text"><strong>Dance Group:</strong> @Model.groupName</div>
-        <div class="card-text"><strong>Dancer Bio:</strong> @Model.dancerBio</div>
+        <h3 class="card-title" style="margin:1rem;">@Model.selecteddancer.firstName @Model.selecteddancer.lastName</h3>
+
+        <div>
+            @{ 
+                string imageUrl = "/Content/Images/Dancers/default.png";
+                if (Model.selecteddancer.DancerHasPic)
+                {
+                    imageUrl = "/Content/Images/Dancers/" + Model.selecteddancer.dancerId + "." + Model.selecteddancer.PicExtension;
+                }
+            }
+        </div>
+        <div class="card-text"><strong>Dance Style:</strong> @Model.selecteddancer.danceStyle</div>
+        <div class="card-text"><strong>Dance Group:</strong> @Model.selecteddancer.Group</div>
+        <div class="card-text"><strong>Dancer Bio:</strong> @Model.selecteddancer.dancerBio</div>
 
 
         <nav style="margin:1rem;">
-            <form method="POST" action="/Dancer/Edit/@Model.dancerId" style="display: inline;" class="card-link">
+            <form method="POST" action="/Dancer/Edit/@Model.selecteddancer.dancerId" style="display: inline;" class="card-link">
                 <button class="btn btn-info">Edit</button>
             </form>
 
-            <form method="POST" action="/Dancer/DeleteConfirm/@Model.dancerId" style="display: inline;" class="card-link">
+            <form method="POST" action="/Dancer/DeleteConfirm/@Model.selecteddancer.dancerId" style="display: inline;" class="card-link">
                 <button class="btn btn-danger">Delete</button>
             </form>
         </nav>

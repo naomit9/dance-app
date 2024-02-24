@@ -14,8 +14,7 @@ namespace DanceApp1.Models
         public string groupName { get; set; }
         public string groupStyle { get; set; }
         public string groupBio { get; set; }
-        //public bool GroupHasPic { get; set; }
-        //public string PicExtension { get; set; }
+   
 
         // A dance group can participate in many showcases
         public ICollection<Showcase> Showcases { get; set; }

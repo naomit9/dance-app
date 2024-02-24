@@ -27,26 +27,6 @@ namespace DanceApp1.Controllers
         /// </summary>
         /// <returns>A list of dancer's first name and last name that links to their bio page</returns>
         /// <example>GET: api/DancerData/ListDancers</example>
-      /*  [HttpGet]
-        public IEnumerable<DancerDto> ListDancers()
-        {
-            List<Dancer> Dancers = db.Dancers.ToList();
-            List<DancerDto> DancerDtos = new List<DancerDto>();
-
-            Dancers.ForEach(d => DancerDtos.Add(new DancerDto()
-            {
-                dancerId = d.dancerId,
-                firstName = d.firstName,
-                lastName = d.lastName,
-                danceStyle = d.danceStyle,
-                dancerBio = d.dancerBio,
-                groupName = d.Group.groupName
-            }));
-
-            return DancerDtos;
-        }*/
-
-
         [HttpGet]
         [Route("api/DancerData/ListDancers/{SearchKey?}")]
         public IEnumerable<DancerDto> ListDancers(string SearchKey=null)
@@ -137,7 +117,7 @@ namespace DanceApp1.Controllers
                 return NotFound();
             }
 
-            return Ok(DancerDto);
+            return Ok(Dancer);
         }
 
         /// <summary>
@@ -171,10 +151,13 @@ namespace DanceApp1.Controllers
 
             db.Entry(dancer).State = EntityState.Modified;
 
-            
+            // Picture update is handled by another method
+            db.Entry(dancer).Property(d => d.DancerHasPic).IsModified = false;
+            db.Entry(dancer).Property(d => d.PicExtension).IsModified = false;
             try
             {
                 db.SaveChanges();
+                Debug.WriteLine("image is saved");
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -191,6 +174,64 @@ namespace DanceApp1.Controllers
 
             Debug.WriteLine("None of the conditions triggered");
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        /// <summary>
+        /// Receives beer picture data, uploads it to the webserver and updates the dancerhaspic
+        /// </summary>
+        /// <param name="id">dancer ID</param>
+        /// <returns>HEADER 200 SUCCESSFUL </returns>
+        /// <example>POST api/DancerData/UploadDancerPic/3</example>
+        [HttpPost]
+        public IHttpActionResult UploadDancerPic(int id)
+        {
+            bool haspic = false;
+            string picextension;
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                int numfiles = HttpContext.Current.Request.Files.Count;
+                Debug.WriteLine("files received:" + numfiles);
+
+                if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                {
+                    var dancerPic = HttpContext.Current.Request.Files[0];
+                    if (dancerPic.ContentLength > 0)
+                    {
+                        var valtypes = new[] { "jpeg", "png", "jpg" };
+                        var extention = Path.GetExtension(dancerPic.FileName).Substring(1);
+                        if (valtypes.Contains(extention))
+                        {
+                            try
+                            {
+                                // file name is the id of the image
+                                string fn = id + "." + extention;
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Images/Dancers/"), fn);
+                                dancerPic.SaveAs(path);
+                                haspic = true;
+                                picextension = extention;
+                                Dancer selecteddancer = db.Dancers.Find(id);
+                                selecteddancer.DancerHasPic = haspic;
+                                selecteddancer.PicExtension = extention;
+                                db.Entry(selecteddancer).State = EntityState.Modified;
+
+                                Debug.WriteLine(selecteddancer.DancerHasPic);
+                                Debug.WriteLine(selecteddancer.PicExtension);
+                                db.SaveChanges();
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine(ex);
+                                return BadRequest();
+                            }
+                        }
+                    }
+                }
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
 

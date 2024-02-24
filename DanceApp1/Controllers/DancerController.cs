@@ -62,19 +62,20 @@ namespace DanceApp1.Controllers
         {
             // curl https://localhost:44306/api/DancerData/FindDancer/{id}
 
-            // Establish URL Endpoint
+            UpdateDancer ViewModel = new UpdateDancer();
             string url = "DancerData/FindDancer/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             //Debug.WriteLine("The response code is ");
             //Debug.WriteLine(response.StatusCode);
 
-            DancerDto selecteddancer = response.Content.ReadAsAsync<DancerDto>().Result;
+            Dancer selecteddancer = response.Content.ReadAsAsync<Dancer>().Result;
+            ViewModel.selecteddancer = selecteddancer;
 
             //Debug.WriteLine("Dancer received: ");
             //Debug.WriteLine(selecteddancer.firstName);
 
-            return View(selecteddancer);
+            return View(ViewModel);
         }
         public ActionResult Error()
         {
@@ -147,7 +148,7 @@ namespace DanceApp1.Controllers
             // The existing animal information
             string url = "DancerData/FindDancer/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            DancerDto selecteddancer = response.Content.ReadAsAsync<DancerDto>().Result;
+            Dancer selecteddancer = response.Content.ReadAsAsync<Dancer>().Result;
 
             ViewModel.selecteddancer = selecteddancer;
 
@@ -173,40 +174,51 @@ namespace DanceApp1.Controllers
         /// <returns>If the update is successful, you will be directed back to the List page, otherwise, the Error page</returns>
         /// <example>POST: Dancer/Update/5</example>
         [HttpPost]
-        public ActionResult Update(int id, Dancer dancer)
+        public ActionResult Update(int id, Dancer dancer, HttpPostedFileBase dancerPic)
         {
-            try
-            {
-                Debug.WriteLine("new dancer info is: ");
-                Debug.WriteLine(dancer.firstName);
-                Debug.WriteLine(dancer.lastName);
+            
+            
+                //Debug.WriteLine("new dancer info is: ");
+                //Debug.WriteLine(dancer.firstName);
+                //Debug.WriteLine(dancer.lastName);
 
                 string url = "DancerData/UpdateDancer/" + id;
                 string jsonpayload = jss.Serialize(dancer);
 
-                Debug.WriteLine(jsonpayload);
+                //Debug.WriteLine(jsonpayload);
 
                 HttpContent content = new StringContent(jsonpayload);
                 content.Headers.ContentType.MediaType = "application/json";
-
                 HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-                Debug.WriteLine(content);
+                //Debug.WriteLine(content);
+                //Debug.WriteLine(response.IsSuccessStatusCode);
 
-                if (response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode && dancerPic != null)
                 {
-                    return RedirectToAction("Details/" + id);
+                    url = "DancerData/UpdateDancerPic/" + id;
+                    
+                    Debug.WriteLine("This is picture number: " + dancerPic.FileName);
+                    Debug.WriteLine(dancerPic.FileName);
+
+                    MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+                    HttpContent imagecontent = new StreamContent(dancerPic.InputStream);
+                    requestcontent.Add(imagecontent, "dancerPic", dancerPic.FileName);
+                    response = client.PostAsync(url, requestcontent).Result;
+                    
+                    Debug.WriteLine(response.IsSuccessStatusCode);
+                    return RedirectToAction("List");
+                }
+                else if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("List");
+    
                 }
                 else
                 {
                     return RedirectToAction("Error");
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Exception occurred: " + ex.Message);
-                return RedirectToAction("Error");
-            }
+           
         }
 
 

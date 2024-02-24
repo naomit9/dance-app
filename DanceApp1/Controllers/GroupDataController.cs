@@ -153,9 +153,6 @@ namespace DanceApp1.Controllers
 
             db.Entry(group).State = EntityState.Modified;
 
-            // Picture update is handled by another method
-            //db.Entry(dancer).Property(d => d.DancerHasPic).IsModified = false;
-            //db.Entry(dancer).Property(d => d.PicExtension).IsModified = false;
 
             try
             {
@@ -178,63 +175,6 @@ namespace DanceApp1.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-
-        /*[HttpPost]
-        public IHttpActionResult UploadDancerPic(int id)
-        {
-            // Check if the request contains multipart form data
-            if (Request.Content.IsMimeMultipartContent())
-            {
-                // Get the file from the request
-                var dancerPic = HttpContext.Current.Request.Files[0];
-
-                // Check if the file is not null and has content
-                if (dancerPic != null && dancerPic.ContentLength > 0)
-                {
-                    try
-                    {
-                        // Define the directory path to save the file
-                        string directoryPath = HttpContext.Current.Server.MapPath("~/Content/Images/Dancers/");
-
-                        // Create the directory if it doesn't exist
-                        if (!Directory.Exists(directoryPath))
-                        {
-                            Directory.CreateDirectory(directoryPath);
-                        }
-
-                        // Generate a unique file name based on the dancer ID and file extension
-                        string fileName = id + Path.GetExtension(dancerPic.FileName);
-
-                        // Combine the directory path and file name to get the full file path
-                        string filePath = Path.Combine(directoryPath, fileName);
-
-                        // Save the file to the server
-                        dancerPic.SaveAs(filePath);
-
-                        // Update the dancer record in the database with the file path
-                        Dancer selectedDancer = db.Dancers.Find(id);
-                        selectedDancer.PicExtension = filePath; // Assuming DancerPicPath is a property in the Dancer model
-                        db.Entry(selectedDancer).State = EntityState.Modified;
-                        db.SaveChanges();
-
-                        return Ok(filePath); // Return the file path if needed
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine("Failed to save dancer image: " + ex.Message);
-                        return InternalServerError(ex);
-                    }
-                }
-                else
-                {
-                    return BadRequest("No file uploaded or file is empty.");
-                }
-            }
-            else
-            {
-                return BadRequest("Invalid request format.");
-            }
-        }*/
 
 
         /// <summary>

@@ -7,7 +7,7 @@
 <h2>Update Dancer Information</h2>
 
 <div style="display: flex; justify-content: space-between;">
-    <form method="POST" action="/Dancer/Update/@Model.selecteddancer.dancerId" enctype="multipart/form-data">
+    <form method="POST" action="/Dancer/Update/@Model.selecteddancer.dancerId"  enctype="multipart/form-data" >
         <input type="text" style="display:none;" name="dancerId" value="@Model.selecteddancer.dancerId" />
         <div class="mb-3">
             <label class="form-label">First Name:  </label> 
@@ -36,7 +36,7 @@
         </div>
 
         <div class="form-group" style="margin: 1rem 0;">
-            <label for="PhotoField">Upload Photo</label>
+            <label for="dancerPic">Upload Photo</label>
             <input type="file" name="dancerPic" />
         </div>
 
