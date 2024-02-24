@@ -16,3 +16,5 @@ I created this dance project because I love dancing and used to be a part of a T
 * Due to time constraint, the image upload was half way finished. I would like to get the images up and running for each dancer bio and maybe for the group and showcase photos as well.
 * Authentication
 * It would be cool to implement a ticket system so users can buy tickets to the showcase events
+
+[Youtube Demo](https://youtu.be/0RuH-v_-WbI)
